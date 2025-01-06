@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "component-package/nextjs-components": ["node_modules/component-package/nextjs-components/dist"]
+      }
+    },
+  }
+
+  
+  
