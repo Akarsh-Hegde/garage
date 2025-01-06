@@ -10,6 +10,10 @@
     "workspaces": {
       "packages": ["nextjs-components", "reactnative-components"]
     },
+    "exports": {
+    "./nextjs-components": "./nextjs-components",
+    "./reactnative-components": "./reactnative-components"
+  },
     "dependencies": {},
     "devDependencies": {
       "rollup": "^3.0.0",
