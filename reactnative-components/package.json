@@ -1,0 +1,20 @@
+{
+    "name": "reactnative-components",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "module": "dist/index.es.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "rollup -c"
+    },
+    "peerDependencies": {
+        "react": "^17.0.0 || ^18.0.0",
+        "react-native": "^0.68.0 || ^0.69.0"
+    },
+    "devDependencies": {
+        "@types/react": "^18.3.18",
+        "@types/react-native": "^0.72.8",
+        "rollup-plugin-typescript2": "^0.31.0",
+        "typescript": "^5.7.2"
+    }
+}
