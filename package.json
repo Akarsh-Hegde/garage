@@ -2,6 +2,7 @@
     "name": "component-package",
     "version": "1.0.0",
     "description": "A component library for both Next.js and React Native",
+    "main": "./nextjs-components/dist/index.js",
     "scripts": {
       "build": "npm run build:nextjs && npm run build:reactnative",
       "build:nextjs": "cd nextjs-components && rollup -c",

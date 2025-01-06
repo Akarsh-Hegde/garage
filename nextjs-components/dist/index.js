@@ -14,4 +14,3 @@ const Card = ({ title, content }) => {
 
 exports.Button = Button;
 exports.Card = Card;
-//# sourceMappingURL=index.js.map

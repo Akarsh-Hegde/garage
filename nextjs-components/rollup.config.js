@@ -1,19 +1,19 @@
-import typescript from "rollup-plugin-typescript2";
+import typescript from '@rollup/plugin-typescript';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 
 export default {
-  input: "src/index.ts",
+  input: 'src/index.ts', // Path to the entry file
   output: [
     {
-      file: "dist/index.js",
-      format: "cjs",
-      sourcemap: true,
+      file: 'dist/index.js',
+      format: 'cjs',
     },
     {
-      file: "dist/index.es.js",
-      format: "es",
-      sourcemap: true,
+      file: 'dist/index.esm.js',
+      format: 'esm',
     },
   ],
-  external: ["react", "react-dom", "react-native"],
-  plugins: [typescript()],
+  plugins: [resolve(), commonjs(), typescript()],
+  external: ['react', 'react-dom'], // Mark peer dependencies as external
 };

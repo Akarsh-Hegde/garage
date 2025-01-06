@@ -11,4 +11,3 @@ const Card = ({ title, content }) => {
 };
 
 export { Button, Card };
-//# sourceMappingURL=index.es.js.map
