@@ -9,9 +9,15 @@
       "declaration": true,
       "declarationDir": "dist",
       "outDir": "dist",
-      "moduleResolution": "Node"
+      "moduleResolution": "Node",
+      "baseUrl": ".",
+      "paths": {
+        "component-package/nextjs-components": ["node_modules/component-package/nextjs-components/dist"]
+      }
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules", "dist"]
   }
+
+  
   
