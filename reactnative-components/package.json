@@ -16,5 +16,8 @@
         "@types/react-native": "^0.72.8",
         "rollup-plugin-typescript2": "^0.31.0",
         "typescript": "^5.7.2"
+    },
+    "dependencies": {
+        "graceful-fs": "^4.2.11"
     }
 }

@@ -1,11 +1,2 @@
 # Node modules
 node_modules/
-
-# Logs
-*.log
-npm-debug.log*
-
-# Environment files
-.env
-.env.local
-.env.*.local
