@@ -4,5 +4,5 @@
   "scripts": {
     "postinstall": "node postinstall.js"
   },
-  "main": "nextjs-components/src/index.js"
+  "main": "reactnative-components/src/index.js"
 }

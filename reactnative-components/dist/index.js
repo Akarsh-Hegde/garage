@@ -1,9 +1,13 @@
 'use strict';
 
-require('react');
+var React = require('react');
 var reactNative = require('react-native');
 
-reactNative.StyleSheet.create({
+const Button = ({ label, onPress }) => {
+    return (React.createElement(reactNative.TouchableOpacity, { style: styles$1.button, onPress: onPress },
+        React.createElement(reactNative.Text, { style: styles$1.text }, label)));
+};
+const styles$1 = reactNative.StyleSheet.create({
     button: {
         padding: 10,
         backgroundColor: '#007BFF',
@@ -16,7 +20,12 @@ reactNative.StyleSheet.create({
     },
 });
 
-reactNative.StyleSheet.create({
+const Card = ({ title, content }) => {
+    return (React.createElement(reactNative.View, { style: styles.card },
+        React.createElement(reactNative.Text, { style: styles.title }, title),
+        React.createElement(reactNative.Text, { style: styles.content }, content)));
+};
+const styles = reactNative.StyleSheet.create({
     card: {
         padding: 15,
         backgroundColor: '#FFF',
@@ -36,4 +45,7 @@ reactNative.StyleSheet.create({
         color: '#555',
     },
 });
+
+exports.Button = Button;
+exports.Card = Card;
 //# sourceMappingURL=index.js.map

@@ -1,7 +1,11 @@
-import 'react';
-import { StyleSheet } from 'react-native';
+import React from 'react';
+import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 
-StyleSheet.create({
+const Button = ({ label, onPress }) => {
+    return (React.createElement(TouchableOpacity, { style: styles$1.button, onPress: onPress },
+        React.createElement(Text, { style: styles$1.text }, label)));
+};
+const styles$1 = StyleSheet.create({
     button: {
         padding: 10,
         backgroundColor: '#007BFF',
@@ -14,7 +18,12 @@ StyleSheet.create({
     },
 });
 
-StyleSheet.create({
+const Card = ({ title, content }) => {
+    return (React.createElement(View, { style: styles.card },
+        React.createElement(Text, { style: styles.title }, title),
+        React.createElement(Text, { style: styles.content }, content)));
+};
+const styles = StyleSheet.create({
     card: {
         padding: 15,
         backgroundColor: '#FFF',
@@ -34,4 +43,6 @@ StyleSheet.create({
         color: '#555',
     },
 });
+
+export { Button, Card };
 //# sourceMappingURL=index.es.js.map

@@ -1,34 +1,49 @@
 const { execSync } = require("child_process");
 const path = require("path");
+const fs = require("fs");
+const readline = require("readline");
 
-// Get the component type from the environment variable
-const componentType = process.env.COMPONENT_TYPE || "nextjs-components"; // Default to nextjs-components
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-if (!["nextjs-components", "reactnative-components"].includes(componentType)) {
-  console.error(
-    "\nInvalid COMPONENT_TYPE. Please set COMPONENT_TYPE to either 'nextjs-components' or 'reactnative-components'."
-  );
-  process.exit(1);
-}
+console.log("\nWhich components do you want to install?");
+console.log("1. Next.js Components");
+console.log("2. React Native Components");
 
-console.log(`\nInstalling ${componentType} dependencies...`);
+rl.question("\nEnter your choice (1 or 2): ", (choice) => {
+  let folder = null;
 
-const folderPath = path.resolve(__dirname, componentType);
+  if (choice === "1") {
+    folder = "nextjs-components";
+    console.log("\nInstalling Next.js Components...");
+  } else if (choice === "2") {
+    folder = "reactnative-components";
+    console.log("\nInstalling React Native Components...");
+  } else {
+    console.error("\nInvalid choice. Exiting...");
+    rl.close();
+    process.exit(1);
+  }
 
-try {
-  execSync("npm install", { cwd: folderPath, stdio: "inherit" });
+  if (folder) {
+    const folderPath = path.resolve(__dirname, folder);
+    try {
+      execSync("npm install", { cwd: folderPath, stdio: "inherit" });
+      
+      // Update the entry point in the root package.json
+      const rootPackageJsonPath = path.resolve(__dirname, "package.json");
+      const rootPackageJson = require(rootPackageJsonPath);
+      rootPackageJson.main = `${folder}/src/index.js`;
+      fs.writeFileSync(rootPackageJsonPath, JSON.stringify(rootPackageJson, null, 2));
 
-  // Update the entry point in the root package.json
-  const rootPackageJsonPath = path.resolve(__dirname, "package.json");
-  const rootPackageJson = require(rootPackageJsonPath);
-  rootPackageJson.main = `${componentType}/components/index.js`;
-  require("fs").writeFileSync(
-    rootPackageJsonPath,
-    JSON.stringify(rootPackageJson, null, 2)
-  );
+      console.log(`\nDependencies installed for ${folder}.`);
+    } catch (error) {
+      console.error(`\nError installing dependencies for ${folder}:`, error);
+      process.exit(1);
+    }
+  }
 
-  console.log(`\nDependencies installed for ${componentType}.`);
-} catch (error) {
-  console.error(`\nError installing dependencies for ${componentType}:`, error);
-  process.exit(1);
-}
+  rl.close();
+});
