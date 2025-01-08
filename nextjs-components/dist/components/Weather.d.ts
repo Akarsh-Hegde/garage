@@ -3,7 +3,9 @@ export interface WeatherWidgetProps {
     location: string;
     temperature: number;
     description: string;
-    backgroundColor?: string;
+    style?: React.CSSProperties;
+    iconStyle?: React.CSSProperties;
+    contentStyle?: React.CSSProperties;
 }
 declare const WeatherWidget: React.FC<WeatherWidgetProps>;
 export default WeatherWidget;
