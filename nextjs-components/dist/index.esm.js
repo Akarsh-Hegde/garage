@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Button = ({ label, onClick }) => {
     return React.createElement("button", { onClick: onClick }, label);
@@ -65,7 +65,76 @@ contentStyle = {}, // Default to an empty object
             React.createElement("p", { style: descriptionStyles }, description))));
 };
 
-const ListView = ({ users, onEdit, onDelete, onAdd }) => {
+const ListView = () => {
+    const [users, setUsers] = useState([]);
+    const API_URL = 'http://localhost:5000/api/users';
+    const fetchUsers = async () => {
+        try {
+            const response = await fetch(API_URL);
+            const data = await response.json();
+            setUsers(data);
+        }
+        catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    };
+    const onAdd = async () => {
+        const newUser = {
+            name: 'New User',
+            email: `newuser${Math.random()}@example.com`,
+            role: 'viewer',
+            status: 'active',
+        };
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newUser),
+            });
+            if (response.ok) {
+                fetchUsers();
+            }
+        }
+        catch (error) {
+            console.error('Error adding user:', error);
+        }
+    };
+    const onEdit = async (user) => {
+        const updatedUser = { ...user, role: 'editor' };
+        try {
+            const response = await fetch(`${API_URL}/${user._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedUser),
+            });
+            if (response.ok) {
+                fetchUsers();
+            }
+        }
+        catch (error) {
+            console.error('Error editing user:', error);
+        }
+    };
+    const onDelete = async (user) => {
+        try {
+            const response = await fetch(`${API_URL}/${user._id}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                fetchUsers();
+            }
+        }
+        catch (error) {
+            console.error('Error deleting user:', error);
+        }
+    };
+    useEffect(() => {
+        fetchUsers();
+    }, []);
     return (React.createElement("div", { style: styles.container },
         React.createElement("div", { style: styles.header },
             React.createElement("h2", { style: styles.title }, "User Management"),
@@ -94,11 +163,11 @@ const ListView = ({ users, onEdit, onDelete, onAdd }) => {
                         } }, user.status)),
                 React.createElement("td", { style: styles.td },
                     React.createElement("button", { style: styles.actionButton, onClick: () => onEdit(user) }, "Edit"),
-                    React.createElement("button", { style: { ...styles.actionButton, backgroundColor: '#f8d7da', color: '#842029' }, onClick: () => onDelete(user) }, "Delete"))))))),
-        React.createElement("div", { style: styles.pagination },
-            React.createElement("button", { style: styles.pageButton }, "Previous"),
-            React.createElement("span", { style: styles.pageInfo }, "Page 1 of 2"),
-            React.createElement("button", { style: styles.pageButton }, "Next"))));
+                    React.createElement("button", { style: {
+                            ...styles.actionButton,
+                            backgroundColor: '#f8d7da',
+                            color: '#842029',
+                        }, onClick: () => onDelete(user) }, "Delete")))))))));
 };
 const styles = {
     container: {
@@ -119,10 +188,6 @@ const styles = {
         fontSize: '18px',
         fontWeight: 600,
     },
-    subtitle: {
-        color: '#6c757d',
-        fontSize: '14px',
-    },
     addButton: {
         backgroundColor: '#0d6efd',
         color: '#fff',
@@ -130,6 +195,10 @@ const styles = {
         borderRadius: '4px',
         padding: '8px 12px',
         cursor: 'pointer',
+    },
+    subtitle: {
+        color: '#6c757d',
+        fontSize: '14px',
     },
     table: {
         width: '100%',
@@ -185,24 +254,6 @@ const styles = {
         border: 'none',
         borderRadius: '4px',
         cursor: 'pointer',
-    },
-    pagination: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: '16px',
-    },
-    pageButton: {
-        backgroundColor: '#e9ecef',
-        color: '#495057',
-        border: 'none',
-        borderRadius: '4px',
-        padding: '6px 12px',
-        cursor: 'pointer',
-    },
-    pageInfo: {
-        fontSize: '14px',
-        color: '#6c757d',
     },
 };
 
