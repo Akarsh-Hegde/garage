@@ -3,5 +3,5 @@ interface ButtonProps {
     label: string;
     onPress: () => void;
 }
-declare const Button: React.FC<ButtonProps>;
+declare const Button: React.ComponentType<ButtonProps>;
 export default Button;

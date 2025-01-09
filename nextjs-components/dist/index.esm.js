@@ -65,44 +65,220 @@ contentStyle = {}, // Default to an empty object
             React.createElement("p", { style: descriptionStyles }, description))));
 };
 
+const EditUserModal = ({ user, onClose, onSave }) => {
+    const [editedUser, setEditedUser] = useState(user);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setEditedUser(prev => ({ ...prev, [name]: value }));
+    };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onSave(editedUser);
+    };
+    return (React.createElement("div", { style: styles$2.modal },
+        React.createElement("div", { style: styles$2.modalContent },
+            React.createElement("h2", null, "Edit User"),
+            React.createElement("form", { onSubmit: handleSubmit },
+                React.createElement("div", { style: styles$2.formGroup },
+                    React.createElement("label", { htmlFor: "name" }, "Name:"),
+                    React.createElement("input", { type: "text", id: "name", name: "name", value: editedUser.name, onChange: handleChange, required: true })),
+                React.createElement("div", { style: styles$2.formGroup },
+                    React.createElement("label", { htmlFor: "email" }, "Email:"),
+                    React.createElement("input", { type: "email", id: "email", name: "email", value: editedUser.email, onChange: handleChange, required: true })),
+                React.createElement("div", { style: styles$2.formGroup },
+                    React.createElement("label", { htmlFor: "role" }, "Role:"),
+                    React.createElement("select", { id: "role", name: "role", value: editedUser.role, onChange: handleChange, required: true },
+                        React.createElement("option", { value: "viewer" }, "Viewer"),
+                        React.createElement("option", { value: "editor" }, "Editor"),
+                        React.createElement("option", { value: "admin" }, "Admin"))),
+                React.createElement("div", { style: styles$2.formGroup },
+                    React.createElement("label", { htmlFor: "status" }, "Status:"),
+                    React.createElement("select", { id: "status", name: "status", value: editedUser.status, onChange: handleChange, required: true },
+                        React.createElement("option", { value: "active" }, "Active"),
+                        React.createElement("option", { value: "inactive" }, "Inactive"))),
+                React.createElement("div", { style: styles$2.buttonGroup },
+                    React.createElement("button", { type: "submit", style: styles$2.saveButton }, "Save"),
+                    React.createElement("button", { type: "button", onClick: onClose, style: styles$2.cancelButton }, "Cancel"))))));
+};
+const styles$2 = {
+    modal: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContent: {
+        backgroundColor: '#fff',
+        padding: '20px',
+        borderRadius: '8px',
+        width: '300px',
+    },
+    formGroup: {
+        marginBottom: '15px',
+    },
+    buttonGroup: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginTop: '20px',
+    },
+    saveButton: {
+        backgroundColor: '#28a745',
+        color: '#fff',
+        border: 'none',
+        padding: '8px 16px',
+        borderRadius: '4px',
+        cursor: 'pointer',
+    },
+    cancelButton: {
+        backgroundColor: '#dc3545',
+        color: '#fff',
+        border: 'none',
+        padding: '8px 16px',
+        borderRadius: '4px',
+        cursor: 'pointer',
+    },
+};
+
+const NewUserModal = ({ onClose, onSave }) => {
+    const [newUser, setNewUser] = useState({
+        name: '',
+        email: '',
+        role: 'viewer',
+        status: 'active',
+    });
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setNewUser(prev => ({ ...prev, [name]: value }));
+    };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onSave(newUser);
+    };
+    return (React.createElement("div", { style: styles$1.modal },
+        React.createElement("div", { style: styles$1.modalContent },
+            React.createElement("h2", null, "Add New User"),
+            React.createElement("form", { onSubmit: handleSubmit },
+                React.createElement("div", { style: styles$1.formGroup },
+                    React.createElement("label", { htmlFor: "name" }, "Name:"),
+                    React.createElement("input", { type: "text", id: "name", name: "name", value: newUser.name, onChange: handleChange, required: true })),
+                React.createElement("div", { style: styles$1.formGroup },
+                    React.createElement("label", { htmlFor: "email" }, "Email:"),
+                    React.createElement("input", { type: "email", id: "email", name: "email", value: newUser.email, onChange: handleChange, required: true })),
+                React.createElement("div", { style: styles$1.formGroup },
+                    React.createElement("label", { htmlFor: "role" }, "Role:"),
+                    React.createElement("select", { id: "role", name: "role", value: newUser.role, onChange: handleChange, required: true },
+                        React.createElement("option", { value: "viewer" }, "Viewer"),
+                        React.createElement("option", { value: "editor" }, "Editor"),
+                        React.createElement("option", { value: "admin" }, "Admin"))),
+                React.createElement("div", { style: styles$1.formGroup },
+                    React.createElement("label", { htmlFor: "status" }, "Status:"),
+                    React.createElement("select", { id: "status", name: "status", value: newUser.status, onChange: handleChange, required: true },
+                        React.createElement("option", { value: "active" }, "Active"),
+                        React.createElement("option", { value: "inactive" }, "Inactive"))),
+                React.createElement("div", { style: styles$1.buttonGroup },
+                    React.createElement("button", { type: "submit", style: styles$1.saveButton }, "Add User"),
+                    React.createElement("button", { type: "button", onClick: onClose, style: styles$1.cancelButton }, "Cancel"))))));
+};
+const styles$1 = {
+    modal: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContent: {
+        backgroundColor: '#fff',
+        padding: '20px',
+        borderRadius: '8px',
+        width: '300px',
+    },
+    formGroup: {
+        marginBottom: '15px',
+    },
+    buttonGroup: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginTop: '20px',
+    },
+    saveButton: {
+        backgroundColor: '#28a745',
+        color: '#fff',
+        border: 'none',
+        padding: '8px 16px',
+        borderRadius: '4px',
+        cursor: 'pointer',
+    },
+    cancelButton: {
+        backgroundColor: '#dc3545',
+        color: '#fff',
+        border: 'none',
+        padding: '8px 16px',
+        borderRadius: '4px',
+        cursor: 'pointer',
+    },
+};
+
 const ListView = () => {
     const [users, setUsers] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [editingUser, setEditingUser] = useState(null);
+    const [isNewUserModalOpen, setIsNewUserModalOpen] = useState(false);
     const API_URL = 'http://localhost:5000/api/users';
     const fetchUsers = async () => {
         try {
+            setIsLoading(true);
+            setError(null); // Clear any previous errors
             const response = await fetch(API_URL);
+            if (!response.ok) {
+                throw new Error(`Error fetching users: ${response.statusText}`);
+            }
             const data = await response.json();
-            setUsers(data);
+            setUsers(data || []); // Ensure data is always an array
         }
-        catch (error) {
-            console.error('Error fetching users:', error);
+        catch (err) {
+            setError(err.message || 'An error occurred while fetching users.');
+            console.error('Error fetching users:', err);
+        }
+        finally {
+            setIsLoading(false);
         }
     };
-    const onAdd = async () => {
-        const newUser = {
-            name: 'New User',
-            email: `newuser${Math.random()}@example.com`,
-            role: 'viewer',
-            status: 'active',
-        };
+    const onAdd = () => {
+        setIsNewUserModalOpen(true);
+    };
+    const onEdit = (user) => {
+        setEditingUser(user);
+    };
+    const onDelete = async (user) => {
         try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newUser),
+            const response = await fetch(`${API_URL}/${user._id}`, {
+                method: 'DELETE',
             });
             if (response.ok) {
                 fetchUsers();
             }
+            else {
+                throw new Error(`Error deleting user: ${response.statusText}`);
+            }
         }
-        catch (error) {
-            console.error('Error adding user:', error);
+        catch (err) {
+            setError(err.message || 'An error occurred while deleting the user.');
+            console.error('Error deleting user:', err);
         }
     };
-    const onEdit = async (user) => {
-        const updatedUser = { ...user, role: 'editor' };
+    const onToggleStatus = async (user) => {
+        const updatedUser = { ...user, status: user.status === 'active' ? 'inactive' : 'active' };
         try {
             const response = await fetch(`${API_URL}/${user._id}`, {
                 method: 'PUT',
@@ -114,22 +290,57 @@ const ListView = () => {
             if (response.ok) {
                 fetchUsers();
             }
+            else {
+                throw new Error(`Error updating user status: ${response.statusText}`);
+            }
         }
-        catch (error) {
-            console.error('Error editing user:', error);
+        catch (err) {
+            setError(err.message || 'An error occurred while updating the user status.');
+            console.error('Error updating user status:', err);
         }
     };
-    const onDelete = async (user) => {
+    const handleEditUser = async (updatedUser) => {
         try {
-            const response = await fetch(`${API_URL}/${user._id}`, {
-                method: 'DELETE',
+            const response = await fetch(`${API_URL}/${updatedUser._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedUser),
             });
             if (response.ok) {
                 fetchUsers();
+                setEditingUser(null);
+            }
+            else {
+                throw new Error(`Error editing user: ${response.statusText}`);
             }
         }
-        catch (error) {
-            console.error('Error deleting user:', error);
+        catch (err) {
+            setError(err.message || 'An error occurred while editing the user.');
+            console.error('Error editing user:', err);
+        }
+    };
+    const handleAddUser = async (newUser) => {
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newUser),
+            });
+            if (response.ok) {
+                fetchUsers();
+                setIsNewUserModalOpen(false);
+            }
+            else {
+                throw new Error(`Error adding user: ${response.statusText}`);
+            }
+        }
+        catch (err) {
+            setError(err.message || 'An error occurred while adding the user.');
+            console.error('Error adding user:', err);
         }
     };
     useEffect(() => {
@@ -140,7 +351,9 @@ const ListView = () => {
             React.createElement("h2", { style: styles.title }, "User Management"),
             React.createElement("button", { style: styles.addButton, onClick: onAdd }, "Add New User")),
         React.createElement("p", { style: styles.subtitle }, "A list of all users in the system."),
-        React.createElement("table", { style: styles.table },
+        isLoading ? (React.createElement("div", null, "Loading...")) : error ? (React.createElement("div", { style: { color: 'red' } },
+            "Error: ",
+            error)) : users.length > 0 ? (React.createElement("table", { style: styles.table },
             React.createElement("thead", null,
                 React.createElement("tr", null,
                     React.createElement("th", { style: styles.th }, "Name"),
@@ -156,10 +369,12 @@ const ListView = () => {
                             React.createElement("div", { style: styles.email }, user.email)))),
                 React.createElement("td", { style: styles.td }, user.role),
                 React.createElement("td", { style: styles.td },
-                    React.createElement("span", { style: {
+                    React.createElement("button", { onClick: () => onToggleStatus(user), style: {
                             ...styles.status,
                             backgroundColor: user.status === 'active' ? '#d1e7dd' : '#f8d7da',
                             color: user.status === 'active' ? '#0f5132' : '#842029',
+                            cursor: 'pointer',
+                            border: 'none',
                         } }, user.status)),
                 React.createElement("td", { style: styles.td },
                     React.createElement("button", { style: styles.actionButton, onClick: () => onEdit(user) }, "Edit"),
@@ -167,7 +382,9 @@ const ListView = () => {
                             ...styles.actionButton,
                             backgroundColor: '#f8d7da',
                             color: '#842029',
-                        }, onClick: () => onDelete(user) }, "Delete")))))))));
+                        }, onClick: () => onDelete(user) }, "Delete")))))))) : (React.createElement("div", null, "No users available.")),
+        editingUser && (React.createElement(EditUserModal, { user: editingUser, onClose: () => setEditingUser(null), onSave: handleEditUser })),
+        isNewUserModalOpen && (React.createElement(NewUserModal, { onClose: () => setIsNewUserModalOpen(false), onSave: handleAddUser }))));
 };
 const styles = {
     container: {

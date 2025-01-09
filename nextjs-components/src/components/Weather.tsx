@@ -9,7 +9,7 @@ export interface WeatherWidgetProps {
   contentStyle?: React.CSSProperties; // Allow custom styles for the content
 }
 
-const WeatherWidget: React.FC<WeatherWidgetProps> = ({
+const WeatherWidget: React.ComponentType<WeatherWidgetProps> = ({
   location,
   temperature,
   description,
