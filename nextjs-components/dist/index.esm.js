@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const Button = ({ label, onClick }) => {
     return React.createElement("button", { onClick: onClick }, label);
@@ -65,57 +65,145 @@ contentStyle = {}, // Default to an empty object
             React.createElement("p", { style: descriptionStyles }, description))));
 };
 
-function CustomTable({ data, columns, keyExtractor = (item) => item.id?.toString() ?? Math.random().toString(), onRowClick, tableContainerStyle = '', tableStyle = '', headerStyle = '', rowStyle = '', cellStyle = '', isLoading = false, loadingRowsCount = 3, emptyStateComponent, title, description, pageSize = 10, }) {
-    const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = Math.ceil(data.length / pageSize);
-    const renderCell = (item, column) => {
-        if (column.render) {
-            return column.render(item);
-        }
-        return item[column.key];
-    };
-    const renderLoadingSkeleton = () => (React.createElement(React.Fragment, null, Array.from({ length: loadingRowsCount }).map((_, index) => (React.createElement("tr", { key: `loading-row-${index}` }, columns.map((column) => (React.createElement("td", { key: `loading-cell-${column.key}`, style: { padding: '10px', textAlign: 'center' } },
-        React.createElement("div", { style: { height: '16px', backgroundColor: '#e0e0e0', borderRadius: '4px' } })))))))));
-    const renderContent = () => {
-        if (isLoading) {
-            return renderLoadingSkeleton();
-        }
-        if (data.length === 0 && emptyStateComponent) {
-            return (React.createElement("tr", null,
-                React.createElement("td", { colSpan: columns.length, style: { textAlign: 'center', padding: '20px' } }, emptyStateComponent)));
-        }
-        const startIndex = (currentPage - 1) * pageSize;
-        const endIndex = startIndex + pageSize;
-        const paginatedData = data.slice(startIndex, endIndex);
-        return paginatedData.map((item) => (React.createElement("tr", { key: keyExtractor(item), className: `${rowStyle} ${onRowClick ? 'hover:bg-gray-100 cursor-pointer' : ''}`, onClick: () => onRowClick && onRowClick(item) }, columns.map((column) => (React.createElement("td", { key: `${keyExtractor(item)}-${column.key}`, className: cellStyle, style: {
-                textAlign: column.align || 'left',
-                padding: '10px',
-                width: column.width,
-            } }, renderCell(item, column)))))));
-    };
-    return (React.createElement("div", { className: `border rounded-lg shadow ${tableContainerStyle}`, style: { overflow: 'hidden' } },
-        (title || description) && (React.createElement("div", { style: { padding: '16px', borderBottom: '1px solid #e0e0e0' } },
-            title && React.createElement("h2", { style: { margin: 0 } }, title),
-            description && React.createElement("p", { style: { margin: 0, color: '#666' } }, description))),
-        React.createElement("div", { style: { maxHeight: '400px', overflow: 'auto' } },
-            React.createElement("table", { className: `w-full ${tableStyle}`, style: { borderCollapse: 'collapse', width: '100%' } },
-                React.createElement("thead", null,
-                    React.createElement("tr", { className: headerStyle }, columns.map((column) => (React.createElement("th", { key: column.key, style: {
-                            textAlign: column.align || 'left',
-                            padding: '10px',
-                            backgroundColor: '#f5f5f5',
-                            borderBottom: '1px solid #e0e0e0',
-                            width: column.width,
-                        } }, column.header))))),
-                React.createElement("tbody", null, renderContent()))),
-        totalPages > 1 && (React.createElement("div", { style: { display: 'flex', justifyContent: 'space-between', padding: '16px', borderTop: '1px solid #e0e0e0' } },
-            React.createElement("button", { style: { padding: '8px 16px', backgroundColor: '#f5f5f5', border: '1px solid #e0e0e0', borderRadius: '4px' }, onClick: () => setCurrentPage((prev) => Math.max(prev - 1, 1)), disabled: currentPage === 1 }, "Previous"),
-            React.createElement("span", null,
-                "Page ",
-                currentPage,
-                " of ",
-                totalPages),
-            React.createElement("button", { style: { padding: '8px 16px', backgroundColor: '#f5f5f5', border: '1px solid #e0e0e0', borderRadius: '4px' }, onClick: () => setCurrentPage((prev) => Math.min(prev + 1, totalPages)), disabled: currentPage === totalPages }, "Next")))));
-}
+const ListView = ({ users, onEdit, onDelete, onAdd }) => {
+    return (React.createElement("div", { style: styles.container },
+        React.createElement("div", { style: styles.header },
+            React.createElement("h2", { style: styles.title }, "User Management"),
+            React.createElement("button", { style: styles.addButton, onClick: onAdd }, "Add New User")),
+        React.createElement("p", { style: styles.subtitle }, "A list of all users in the system."),
+        React.createElement("table", { style: styles.table },
+            React.createElement("thead", null,
+                React.createElement("tr", null,
+                    React.createElement("th", { style: styles.th }, "Name"),
+                    React.createElement("th", { style: styles.th }, "Role"),
+                    React.createElement("th", { style: styles.th }, "Status"),
+                    React.createElement("th", { style: styles.th }, "Actions"))),
+            React.createElement("tbody", null, users.map((user, index) => (React.createElement("tr", { key: index, style: styles.tr },
+                React.createElement("td", { style: styles.td },
+                    React.createElement("div", { style: styles.nameContainer },
+                        React.createElement("img", { src: "https://via.placeholder.com/40", alt: "User Avatar", style: styles.avatar }),
+                        React.createElement("div", null,
+                            React.createElement("div", { style: styles.name }, user.name),
+                            React.createElement("div", { style: styles.email }, user.email)))),
+                React.createElement("td", { style: styles.td }, user.role),
+                React.createElement("td", { style: styles.td },
+                    React.createElement("span", { style: {
+                            ...styles.status,
+                            backgroundColor: user.status === 'active' ? '#d1e7dd' : '#f8d7da',
+                            color: user.status === 'active' ? '#0f5132' : '#842029',
+                        } }, user.status)),
+                React.createElement("td", { style: styles.td },
+                    React.createElement("button", { style: styles.actionButton, onClick: () => onEdit(user) }, "Edit"),
+                    React.createElement("button", { style: { ...styles.actionButton, backgroundColor: '#f8d7da', color: '#842029' }, onClick: () => onDelete(user) }, "Delete"))))))),
+        React.createElement("div", { style: styles.pagination },
+            React.createElement("button", { style: styles.pageButton }, "Previous"),
+            React.createElement("span", { style: styles.pageInfo }, "Page 1 of 2"),
+            React.createElement("button", { style: styles.pageButton }, "Next"))));
+};
+const styles = {
+    container: {
+        border: '1px solid #e0e0e0',
+        borderRadius: '8px',
+        padding: '16px',
+        backgroundColor: '#fff',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+        fontFamily: 'Arial, sans-serif',
+    },
+    header: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    title: {
+        margin: 0,
+        fontSize: '18px',
+        fontWeight: 600,
+    },
+    subtitle: {
+        color: '#6c757d',
+        fontSize: '14px',
+    },
+    addButton: {
+        backgroundColor: '#0d6efd',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '4px',
+        padding: '8px 12px',
+        cursor: 'pointer',
+    },
+    table: {
+        width: '100%',
+        borderCollapse: 'collapse',
+        marginTop: '16px',
+    },
+    th: {
+        textAlign: 'left',
+        padding: '8px',
+        borderBottom: '2px solid #e0e0e0',
+        fontSize: '14px',
+        color: '#495057',
+    },
+    td: {
+        padding: '8px',
+        borderBottom: '1px solid #e0e0e0',
+        fontSize: '14px',
+        color: '#495057',
+    },
+    tr: {
+        transition: 'background-color 0.2s',
+    },
+    nameContainer: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    avatar: {
+        width: '40px',
+        height: '40px',
+        borderRadius: '50%',
+        marginRight: '8px',
+    },
+    name: {
+        fontWeight: 600,
+    },
+    email: {
+        fontSize: '12px',
+        color: '#6c757d',
+    },
+    status: {
+        padding: '4px 8px',
+        borderRadius: '12px',
+        fontSize: '12px',
+        fontWeight: 600,
+        display: 'inline-block',
+    },
+    actionButton: {
+        marginRight: '8px',
+        padding: '6px 12px',
+        fontSize: '12px',
+        color: '#fff',
+        backgroundColor: '#0d6efd',
+        border: 'none',
+        borderRadius: '4px',
+        cursor: 'pointer',
+    },
+    pagination: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: '16px',
+    },
+    pageButton: {
+        backgroundColor: '#e9ecef',
+        color: '#495057',
+        border: 'none',
+        borderRadius: '4px',
+        padding: '6px 12px',
+        cursor: 'pointer',
+    },
+    pageInfo: {
+        fontSize: '14px',
+        color: '#6c757d',
+    },
+};
 
-export { Button, Card, CustomTable as Table, WeatherWidget };
+export { Button, Card, ListView, WeatherWidget };
