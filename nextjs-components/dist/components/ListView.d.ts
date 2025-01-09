@@ -11,5 +11,5 @@ interface ListViewProps {
     onDelete: (user: User) => void;
     onAdd: () => void;
 }
-declare const ListView: React.FC<ListViewProps>;
+declare const ListView: React.ComponentType<ListViewProps>;
 export default ListView;

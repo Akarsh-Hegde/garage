@@ -14,7 +14,7 @@ interface ListViewProps {
   onAdd: () => void;
 }
 
-const ListView: React.FC<ListViewProps> = ({ users, onEdit, onDelete, onAdd }) => {
+const ListView: React.ComponentType<ListViewProps> = ({ users, onEdit, onDelete, onAdd }) => {
   return (
     <div style={styles.container}>
       <div style={styles.header}>
