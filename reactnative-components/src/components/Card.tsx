@@ -6,7 +6,7 @@ interface CardProps {
   content: string;
 }
 
-const Card: React.FC<CardProps> = ({ title, content }) => {
+const Card: React.ComponentType<CardProps> = ({ title, content }) => {
   return (
     <View style={styles.card}>
       <Text style={styles.title}>{title}</Text>

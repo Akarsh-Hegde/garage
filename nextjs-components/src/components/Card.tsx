@@ -5,7 +5,7 @@ interface CardProps {
   content: string;
 }
 
-const Card: React.FC<CardProps> = ({ title, content }) => {
+const Card: React.ComponentType<CardProps> = ({ title, content }) => {
   return (
     <div>
       <h3>{title}</h3>

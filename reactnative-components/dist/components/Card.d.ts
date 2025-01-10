@@ -3,5 +3,5 @@ interface CardProps {
     title: string;
     content: string;
 }
-declare const Card: React.FC<CardProps>;
+declare const Card: React.ComponentType<CardProps>;
 export default Card;
