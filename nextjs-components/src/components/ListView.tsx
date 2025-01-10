@@ -10,7 +10,7 @@ interface User {
   status: 'active' | 'inactive';
 }
 
-const ListView: React.ComponentType = () => {
+const ListView: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

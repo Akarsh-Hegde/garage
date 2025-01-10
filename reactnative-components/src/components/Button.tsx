@@ -6,7 +6,7 @@ interface ButtonProps {
   onPress: () => void;
 }
 
-const Button: React.ComponentType<ButtonProps> = ({ label, onPress }) => {
+const Button: React.FC<ButtonProps> = ({ label, onPress }) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.text}>{label}</Text>

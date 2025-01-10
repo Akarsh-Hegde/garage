@@ -11,5 +11,5 @@ interface EditUserModalProps {
     onClose: () => void;
     onSave: (user: User) => void;
 }
-declare const EditUserModal: React.ComponentType<EditUserModalProps>;
+declare const EditUserModal: React.FC<EditUserModalProps>;
 export default EditUserModal;

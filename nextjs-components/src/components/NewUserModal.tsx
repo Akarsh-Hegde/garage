@@ -13,7 +13,7 @@ interface NewUserModalProps {
   onSave: (user: User) => void;
 }
 
-const NewUserModal: React.ComponentType<NewUserModalProps> = ({ onClose, onSave }) => {
+const NewUserModal: React.FC<NewUserModalProps> = ({ onClose, onSave }) => {
   const [newUser, setNewUser] = useState<User>({
     name: '',
     email: '',

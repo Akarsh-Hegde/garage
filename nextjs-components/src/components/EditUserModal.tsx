@@ -14,7 +14,7 @@ interface EditUserModalProps {
   onSave: (user: User) => void;
 }
 
-const EditUserModal: React.ComponentType<EditUserModalProps> = ({ user, onClose, onSave }) => {
+const EditUserModal: React.FC<EditUserModalProps> = ({ user, onClose, onSave }) => {
   const [editedUser, setEditedUser] = useState<User>(user);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

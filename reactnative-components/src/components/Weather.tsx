@@ -7,7 +7,7 @@ export interface WeatherWidgetProps {
     description: string;
   }
 
-const WeatherWidget: React.ComponentType<WeatherWidgetProps> = ({ location, temperature, description }) => (
+const WeatherWidget: React.FC<WeatherWidgetProps> = ({ location, temperature, description }) => (
   <View style={styles.widgetContainer}>
     <View style={styles.iconContainer}>
       <Text>⛅</Text>

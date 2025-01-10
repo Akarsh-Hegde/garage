@@ -7,5 +7,5 @@ export interface WeatherWidgetProps {
     iconStyle?: React.CSSProperties;
     contentStyle?: React.CSSProperties;
 }
-declare const WeatherWidget: React.ComponentType<WeatherWidgetProps>;
+declare const WeatherWidget: React.FC<WeatherWidgetProps>;
 export default WeatherWidget;

@@ -4,7 +4,7 @@ export interface WeatherWidgetProps {
     temperature: number;
     description: string;
 }
-declare const WeatherWidget: React.ComponentType<WeatherWidgetProps>;
+declare const WeatherWidget: React.FC<WeatherWidgetProps>;
 export declare const styles: {
     widgetContainer: {
         flexDirection: "row";

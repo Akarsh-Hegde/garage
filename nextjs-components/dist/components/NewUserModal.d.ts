@@ -10,5 +10,5 @@ interface NewUserModalProps {
     onClose: () => void;
     onSave: (user: User) => void;
 }
-declare const NewUserModal: React.ComponentType<NewUserModalProps>;
+declare const NewUserModal: React.FC<NewUserModalProps>;
 export default NewUserModal;
