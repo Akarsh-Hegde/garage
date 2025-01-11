@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.05,
         shadowRadius: 2,
         elevation: 2,
+        width: '100%'
     },
     headerContainer: {
         backgroundColor: '#f5f5f5',
