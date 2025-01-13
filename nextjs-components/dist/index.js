@@ -69,7 +69,7 @@ contentStyle = {}, // Default to an empty object
 
 const theme = {
     colors: {
-        primary: '#1A1A1A',
+        primary: '#50b8d5',
         secondary: '#6B7280',
         success: '#1A1A1A',
         danger: '#EF4444',

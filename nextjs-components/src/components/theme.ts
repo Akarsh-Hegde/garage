@@ -1,6 +1,6 @@
 export const theme = {
     colors: {
-      primary: '#1A1A1A',    // Black for primary buttons
+      primary: '#50b8d5',    // Black for primary buttons
       secondary: '#6B7280',  // Gray for secondary text
       success: '#1A1A1A',    // Black for active status
       danger: '#EF4444',     // Red for delete buttons
