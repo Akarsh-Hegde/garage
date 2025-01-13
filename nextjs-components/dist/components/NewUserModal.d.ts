@@ -8,7 +8,7 @@ interface User {
 }
 interface NewUserModalProps {
     onClose: () => void;
-    onSave: (user: User) => void;
+    onSave: (user: Omit<User, '_id'>) => void;
 }
 declare const NewUserModal: React.FC<NewUserModalProps>;
 export default NewUserModal;

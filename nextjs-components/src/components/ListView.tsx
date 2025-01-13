@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import EditUserModal from './EditUserModal';
 import NewUserModal from './NewUserModal';
+import { theme } from './theme';
 
 interface User {
   _id?: string;
@@ -9,17 +10,16 @@ interface User {
   role: string;
   status: 'active' | 'inactive';
 }
-
 const ListView: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [isNewUserModalOpen, setIsNewUserModalOpen] = useState(false);
   const API_URL = 'http://localhost:5000/api/users';
 
-  const fetchUsers = async () => {
-    try {
+    const fetchUsers = async () => {
+      try {
       setIsLoading(true);
       setError(null); // Clear any previous errors
       const response = await fetch(API_URL);
@@ -32,9 +32,9 @@ const ListView: React.FC = () => {
       setError(err.message || 'An error occurred while fetching users.');
       console.error('Error fetching users:', err);
     } finally {
-      setIsLoading(false);
-    }
-  };
+        setIsLoading(false);
+      }
+    };
 
   const onAdd = () => {
     setIsNewUserModalOpen(true);
@@ -92,7 +92,7 @@ const ListView: React.FC = () => {
       });
       if (response.ok) {
         fetchUsers();
-        setEditingUser(null);
+      setEditingUser(null);
       } else {
         throw new Error(`Error editing user: ${response.statusText}`);
       }
@@ -113,7 +113,7 @@ const ListView: React.FC = () => {
       });
       if (response.ok) {
         fetchUsers();
-        setIsNewUserModalOpen(false);
+      setIsNewUserModalOpen(false);
       } else {
         throw new Error(`Error adding user: ${response.statusText}`);
       }
@@ -137,9 +137,9 @@ const ListView: React.FC = () => {
       </div>
       <p style={styles.subtitle}>A list of all users in the system.</p>
       {isLoading ? (
-        <div>Loading...</div>
+        <div style={styles.loading}>Loading...</div>
       ) : error ? (
-        <div style={{ color: 'red' }}>Error: {error}</div>
+        <div style={styles.error}>Error: {error}</div>
       ) : users.length > 0 ? (
         <table style={styles.table}>
           <thead>
@@ -151,12 +151,12 @@ const ListView: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
-              <tr key={index} style={styles.tr}>
+            {users.map((user) => (
+              <tr key={user._id} style={styles.tr}>
                 <td style={styles.td}>
                   <div style={styles.nameContainer}>
                     <img
-                      src="https://via.placeholder.com/40"
+                      src={`https://api.dicebear.com/6.x/initials/svg?seed=${user.name}`}
                       alt="User Avatar"
                       style={styles.avatar}
                     />
@@ -172,31 +172,18 @@ const ListView: React.FC = () => {
                     onClick={() => onToggleStatus(user)}
                     style={{
                       ...styles.status,
-                      backgroundColor:
-                        user.status === 'active' ? '#d1e7dd' : '#f8d7da',
-                      color: user.status === 'active' ? '#0f5132' : '#842029',
-                      cursor: 'pointer',
-                      border: 'none',
+                      backgroundColor: user.status === 'active' ? theme.colors.success : theme.colors.danger,
+                      color: theme.colors.white,
                     }}
                   >
                     {user.status}
                   </button>
                 </td>
                 <td style={styles.td}>
-                  <button
-                    style={styles.actionButton}
-                    onClick={() => onEdit(user)}
-                  >
+                  <button style={styles.editButton} onClick={() => onEdit(user)}>
                     Edit
                   </button>
-                  <button
-                    style={{
-                      ...styles.actionButton,
-                      backgroundColor: '#f8d7da',
-                      color: '#842029',
-                    }}
-                    onClick={() => onDelete(user)}
-                  >
+                  <button style={styles.deleteButton} onClick={() => onDelete(user)}>
                     Delete
                   </button>
                 </td>
@@ -205,7 +192,7 @@ const ListView: React.FC = () => {
           </tbody>
         </table>
       ) : (
-        <div>No users available.</div>
+        <div style={styles.noUsers}>No users available.</div>
       )}
       {editingUser && (
         <EditUserModal
@@ -226,90 +213,133 @@ const ListView: React.FC = () => {
 
 const styles = {
   container: {
-    border: '1px solid #e0e0e0',
-    borderRadius: '8px',
-    padding: '16px',
-    backgroundColor: '#fff',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-  } as React.CSSProperties,
+    fontFamily: theme.fonts.body,
+    backgroundColor: theme.colors.background,
+    borderRadius: theme.borderRadius,
+    padding: '24px',
+    maxWidth: '1200px',
+    margin: '0 auto',
+    boxShadow: theme.boxShadow,
+  },
   header: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-  } as React.CSSProperties,
+    marginBottom: '16px',
+  },
   title: {
-    margin: 0,
-    fontSize: '18px',
+    fontFamily: theme.fonts.heading,
+    fontSize: '24px',
     fontWeight: 600,
-  } as React.CSSProperties,
+    color: theme.colors.dark,
+    margin: 0,
+  },
   addButton: {
-    backgroundColor: '#0d6efd',
-    color: '#fff',
+    backgroundColor: theme.colors.primary,
+    color: theme.colors.white,
     border: 'none',
-    borderRadius: '4px',
-    padding: '8px 12px',
-    cursor: 'pointer',
-  } as React.CSSProperties,
-  subtitle: {
-    color: '#6c757d',
+    borderRadius: theme.borderRadius,
+    padding: '10px 16px',
     fontSize: '14px',
-  } as React.CSSProperties,
+    fontWeight: 600,
+    cursor: 'pointer',
+    transition: 'background-color 0.2s',
+  },
+  subtitle: {
+    color: theme.colors.secondary,
+    fontSize: '14px',
+    marginBottom: '24px',
+  },
   table: {
     width: '100%',
-    borderCollapse: 'collapse' as 'collapse',
-    marginTop: '16px',
-  } as React.CSSProperties,
+    borderCollapse: 'separate',
+    borderSpacing: '0 8px',
+  },
   th: {
-    textAlign: 'left',
-    padding: '8px',
-    borderBottom: '2px solid #e0e0e0',
+    textAlign: 'left' as const,
+    padding: '16px',
+    backgroundColor: theme.colors.light,
+    color: theme.colors.secondary,
+    fontWeight: 600,
     fontSize: '14px',
-    color: '#495057',
-  } as React.CSSProperties,
-  td: {
-    padding: '8px',
-    borderBottom: '1px solid #e0e0e0',
-    fontSize: '14px',
-    color: '#495057',
-  } as React.CSSProperties,
+    textTransform: 'uppercase' as const,
+  },
   tr: {
-    transition: 'background-color 0.2s',
-  } as React.CSSProperties,
+    backgroundColor: theme.colors.white,
+    transition: 'box-shadow 0.2s',
+  },
+  td: {
+    padding: '16px',
+    borderTop: `1px solid ${theme.colors.light}`,
+    borderBottom: `1px solid ${theme.colors.light}`,
+  },
   nameContainer: {
     display: 'flex',
     alignItems: 'center',
-  } as React.CSSProperties,
+  },
   avatar: {
     width: '40px',
     height: '40px',
     borderRadius: '50%',
-    marginRight: '8px',
-  } as React.CSSProperties,
+    marginRight: '12px',
+  },
   name: {
     fontWeight: 600,
-  } as React.CSSProperties,
+    color: theme.colors.dark,
+  },
   email: {
     fontSize: '12px',
-    color: '#6c757d',
-  } as React.CSSProperties,
+    color: theme.colors.secondary,
+  },
   status: {
-    padding: '4px 8px',
-    borderRadius: '12px',
+    padding: '6px 12px',
+    borderRadius: '20px',
     fontSize: '12px',
     fontWeight: 600,
-    display: 'inline-block',
-  } as React.CSSProperties,
-  actionButton: {
-    marginRight: '8px',
+    textTransform: 'capitalize' as const,
+    cursor: 'pointer',
+    border: 'none',
+  },
+  editButton: {
+    backgroundColor: theme.colors.white,
+    color: theme.colors.dark,
+    border: `1px solid ${theme.colors.secondary}`,
+    borderRadius: theme.borderRadius,
     padding: '6px 12px',
     fontSize: '12px',
-    color: '#fff',
-    backgroundColor: '#0d6efd',
-    border: 'none',
-    borderRadius: '4px',
+    fontWeight: 600,
     cursor: 'pointer',
-  } as React.CSSProperties,
-};
+    marginRight: '8px',
+  },
+  deleteButton: {
+    backgroundColor: theme.colors.danger,
+    color: theme.colors.white,
+    border: 'none',
+    borderRadius: theme.borderRadius,
+    padding: '6px 12px',
+    fontSize: '12px',
+    fontWeight: 600,
+    cursor: 'pointer',
+  },
+  loading: {
+    textAlign: 'center' as const,
+    fontSize: '16px',
+    color: theme.colors.secondary,
+    padding: '40px',
+  },
+  error: {
+    textAlign: 'center' as const,
+    fontSize: '16px',
+    color: theme.colors.danger,
+    padding: '40px',
+  },
+  noUsers: {
+    textAlign: 'center' as const,
+    fontSize: '16px',
+    color: theme.colors.secondary,
+    padding: '40px',
+  },
+} as const;
 
 export default ListView;
+

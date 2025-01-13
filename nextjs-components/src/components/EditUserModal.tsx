@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { theme } from './theme';
 
 interface User {
   _id?: string;
@@ -30,10 +31,10 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ user, onClose, onSave }) 
   return (
     <div style={styles.modal}>
       <div style={styles.modalContent}>
-        <h2>Edit User</h2>
+        <h2 style={styles.title}>Edit User</h2>
         <form onSubmit={handleSubmit}>
           <div style={styles.formGroup}>
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name" style={styles.label}>Name:</label>
             <input
               type="text"
               id="name"
@@ -41,10 +42,11 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ user, onClose, onSave }) 
               value={editedUser.name}
               onChange={handleChange}
               required
+              style={styles.input}
             />
           </div>
           <div style={styles.formGroup}>
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email" style={styles.label}>Email:</label>
             <input
               type="email"
               id="email"
@@ -52,16 +54,18 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ user, onClose, onSave }) 
               value={editedUser.email}
               onChange={handleChange}
               required
+              style={styles.input}
             />
           </div>
           <div style={styles.formGroup}>
-            <label htmlFor="role">Role:</label>
+            <label htmlFor="role" style={styles.label}>Role:</label>
             <select
               id="role"
               name="role"
               value={editedUser.role}
               onChange={handleChange}
               required
+              style={styles.select}
             >
               <option value="viewer">Viewer</option>
               <option value="editor">Editor</option>
@@ -69,20 +73,21 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ user, onClose, onSave }) 
             </select>
           </div>
           <div style={styles.formGroup}>
-            <label htmlFor="status">Status:</label>
+            <label htmlFor="status" style={styles.label}>Status:</label>
             <select
               id="status"
               name="status"
               value={editedUser.status}
               onChange={handleChange}
               required
+              style={styles.select}
             >
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
           </div>
           <div style={styles.buttonGroup}>
-            <button type="submit" style={styles.saveButton}>Save</button>
+            <button type="submit" style={styles.saveButton}>Save Changes</button>
             <button type="button" onClick={onClose} style={styles.cancelButton}>Cancel</button>
           </div>
         </form>
@@ -93,7 +98,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ user, onClose, onSave }) 
 
 const styles = {
   modal: {
-    position: 'fixed',
+    position: 'fixed' as const,
     top: 0,
     left: 0,
     width: '100%',
@@ -102,38 +107,76 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-  } as React.CSSProperties,
+    zIndex: 1000,
+  },
   modalContent: {
-    backgroundColor: '#fff',
-    padding: '20px',
-    borderRadius: '8px',
-    width: '300px',
-  } as React.CSSProperties,
+    backgroundColor: theme.colors.white,
+    padding: '24px',
+    borderRadius: theme.borderRadius,
+    width: '400px',
+    maxWidth: '90%',
+    boxShadow: theme.boxShadow,
+  },
+  title: {
+    fontFamily: theme.fonts.heading,
+    fontSize: '20px',
+    fontWeight: 600,
+    color: theme.colors.dark,
+    marginBottom: '16px',
+  },
   formGroup: {
-    marginBottom: '15px',
-  } as React.CSSProperties,
+    marginBottom: '16px',
+  },
+  label: {
+    display: 'block',
+    marginBottom: '4px',
+    fontSize: '14px',
+    fontWeight: 600,
+    color: theme.colors.dark,
+  },
+  input: {
+    width: '100%',
+    padding: '8px 12px',
+    fontSize: '14px',
+    border: `1px solid ${theme.colors.secondary}`,
+    borderRadius: theme.borderRadius,
+    backgroundColor: theme.colors.white,
+  },
+  select: {
+    width: '100%',
+    padding: '8px 12px',
+    fontSize: '14px',
+    border: `1px solid ${theme.colors.secondary}`,
+    borderRadius: theme.borderRadius,
+    backgroundColor: theme.colors.white,
+  },
   buttonGroup: {
     display: 'flex',
-    justifyContent: 'space-between',
-    marginTop: '20px',
-  } as React.CSSProperties,
+    justifyContent: 'flex-end',
+    gap: '8px',
+    marginTop: '24px',
+  },
   saveButton: {
-    backgroundColor: '#28a745',
-    color: '#fff',
+    backgroundColor: theme.colors.primary,
+    color: theme.colors.white,
     border: 'none',
+    borderRadius: theme.borderRadius,
     padding: '8px 16px',
-    borderRadius: '4px',
+    fontSize: '14px',
+    fontWeight: 600,
     cursor: 'pointer',
-  } as React.CSSProperties,
+  },
   cancelButton: {
-    backgroundColor: '#dc3545',
-    color: '#fff',
-    border: 'none',
+    backgroundColor: theme.colors.light,
+    color: theme.colors.dark,
+    border: `1px solid ${theme.colors.secondary}`,
+    borderRadius: theme.borderRadius,
     padding: '8px 16px',
-    borderRadius: '4px',
+    fontSize: '14px',
+    fontWeight: 600,
     cursor: 'pointer',
-  } as React.CSSProperties,
-};
+  },
+} as const;
 
 export default EditUserModal;
 
