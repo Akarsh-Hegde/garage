@@ -2,12 +2,14 @@
 
 var React = require('react');
 var reactNative = require('react-native');
+var reactNativeChartKit = require('react-native-chart-kit');
+var dateFns = require('date-fns');
 
 const Button = ({ label, onPress }) => {
-    return (React.createElement(reactNative.TouchableOpacity, { style: styles$3.button, onPress: onPress },
-        React.createElement(reactNative.Text, { style: styles$3.text }, label)));
+    return (React.createElement(reactNative.TouchableOpacity, { style: styles$5.button, onPress: onPress },
+        React.createElement(reactNative.Text, { style: styles$5.text }, label)));
 };
-const styles$3 = reactNative.StyleSheet.create({
+const styles$5 = reactNative.StyleSheet.create({
     button: {
         padding: 10,
         backgroundColor: '#007BFF',
@@ -21,11 +23,11 @@ const styles$3 = reactNative.StyleSheet.create({
 });
 
 const Card = ({ title, content }) => {
-    return (React.createElement(reactNative.View, { style: styles$2.card },
-        React.createElement(reactNative.Text, { style: styles$2.title }, title),
-        React.createElement(reactNative.Text, { style: styles$2.content }, content)));
+    return (React.createElement(reactNative.View, { style: styles$4.card },
+        React.createElement(reactNative.Text, { style: styles$4.title }, title),
+        React.createElement(reactNative.Text, { style: styles$4.content }, content)));
 };
-const styles$2 = reactNative.StyleSheet.create({
+const styles$4 = reactNative.StyleSheet.create({
     card: {
         padding: 15,
         backgroundColor: '#FFF',
@@ -46,18 +48,18 @@ const styles$2 = reactNative.StyleSheet.create({
     },
 });
 
-const WeatherWidget = ({ location, temperature, description }) => (React.createElement(reactNative.View, { style: styles$1.widgetContainer },
-    React.createElement(reactNative.View, { style: styles$1.iconContainer },
+const WeatherWidget = ({ location, temperature, description }) => (React.createElement(reactNative.View, { style: styles$3.widgetContainer },
+    React.createElement(reactNative.View, { style: styles$3.iconContainer },
         React.createElement(reactNative.Text, null, "\u26C5")),
-    React.createElement(reactNative.View, { style: styles$1.weatherContent },
-        React.createElement(reactNative.Text, { style: styles$1.weatherTitle },
+    React.createElement(reactNative.View, { style: styles$3.weatherContent },
+        React.createElement(reactNative.Text, { style: styles$3.weatherTitle },
             "Weather Update: ",
             location),
-        React.createElement(reactNative.Text, { style: styles$1.temperature },
+        React.createElement(reactNative.Text, { style: styles$3.temperature },
             temperature,
             "\u00B0C"),
-        React.createElement(reactNative.Text, { style: styles$1.description }, description))));
-const styles$1 = reactNative.StyleSheet.create({
+        React.createElement(reactNative.Text, { style: styles$3.description }, description))));
+const styles$3 = reactNative.StyleSheet.create({
     widgetContainer: {
         flexDirection: 'row',
         alignItems: 'flex-start',
@@ -68,7 +70,7 @@ const styles$1 = reactNative.StyleSheet.create({
         width: 40,
         height: 40,
         borderRadius: 20,
-        backgroundColor: '#4299e1',
+        backgroundColor: '#cc99ff',
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 16,
@@ -95,27 +97,62 @@ const styles$1 = reactNative.StyleSheet.create({
     },
 });
 
-function MedicineList({ medicines, initialVisibleItems = 3, }) {
+function MedicineManager({ initialMedicines = [], initialVisibleItems = 3, onMedicineAdded, }) {
+    const [medicines, setMedicines] = React.useState(initialMedicines);
     const [expanded, setExpanded] = React.useState(false);
+    const [modalVisible, setModalVisible] = React.useState(false);
+    const [newMedicine, setNewMedicine] = React.useState({
+        name: '',
+        dose: '',
+    });
     const displayedMedicines = expanded
         ? medicines
         : medicines.slice(0, initialVisibleItems);
-    const renderItem = ({ item }) => (React.createElement(reactNative.View, { style: styles.row },
-        React.createElement(reactNative.Text, { style: styles.medicineText }, item.name),
-        React.createElement(reactNative.View, { style: styles.verticalDivider }),
-        React.createElement(reactNative.Text, { style: styles.doseText }, item.dose)));
-    const renderHeader = () => (React.createElement(reactNative.View, { style: styles.headerContainer },
-        React.createElement(reactNative.View, { style: styles.header },
-            React.createElement(reactNative.Text, { style: styles.headerText }, "Medicine"),
-            React.createElement(reactNative.View, { style: styles.headerVerticalDivider }),
-            React.createElement(reactNative.Text, { style: styles.headerText }, "Dose"))));
-    return (React.createElement(reactNative.View, { style: styles.container },
-        renderHeader(),
-        React.createElement(reactNative.FlatList, { data: displayedMedicines, renderItem: renderItem, keyExtractor: (item, index) => `${item.name}-${index}`, scrollEnabled: false, ItemSeparatorComponent: () => React.createElement(reactNative.View, { style: styles.separator }) }),
-        medicines.length > initialVisibleItems && (React.createElement(reactNative.Pressable, { onPress: () => setExpanded(!expanded), style: styles.seeMoreContainer },
-            React.createElement(reactNative.Text, { style: styles.seeMoreText }, expanded ? 'See less' : 'See more')))));
+    const handleAddMedicine = () => {
+        if (newMedicine.name && newMedicine.dose) {
+            const medicineToAdd = {
+                ...newMedicine,
+                date: new Date(),
+            };
+            setMedicines([...medicines, medicineToAdd]);
+            onMedicineAdded?.(medicineToAdd);
+            setNewMedicine({ name: '', dose: '' });
+            setModalVisible(false);
+        }
+    };
+    const renderItem = ({ item }) => (React.createElement(reactNative.View, { style: styles$2.row },
+        React.createElement(reactNative.Text, { style: styles$2.medicineText }, item.name),
+        React.createElement(reactNative.View, { style: styles$2.verticalDivider }),
+        React.createElement(reactNative.Text, { style: styles$2.doseText }, item.dose)));
+    const renderHeader = () => (React.createElement(reactNative.View, { style: styles$2.headerContainer },
+        React.createElement(reactNative.View, { style: styles$2.header },
+            React.createElement(reactNative.Text, { style: styles$2.headerText }, "Medicine"),
+            React.createElement(reactNative.View, { style: styles$2.headerVerticalDivider }),
+            React.createElement(reactNative.Text, { style: styles$2.headerText }, "Dose"))));
+    return (React.createElement(reactNative.View, { style: styles$2.full },
+        React.createElement(reactNative.View, { style: styles$2.container },
+            renderHeader(),
+            React.createElement(reactNative.FlatList, { data: displayedMedicines, renderItem: renderItem, keyExtractor: (item, index) => `${item.name}-${index}`, scrollEnabled: false, ItemSeparatorComponent: () => React.createElement(reactNative.View, { style: styles$2.separator }) }),
+            medicines.length > initialVisibleItems && (React.createElement(reactNative.Pressable, { onPress: () => setExpanded(!expanded), style: styles$2.seeMoreContainer },
+                React.createElement(reactNative.Text, { style: styles$2.seeMoreText }, expanded ? 'See less' : 'See more')))),
+        React.createElement(reactNative.Pressable, { onPress: () => setModalVisible(true), style: styles$2.addButton },
+            React.createElement(reactNative.Text, { style: styles$2.addButtonText }, "Add Medication")),
+        React.createElement(reactNative.Modal, { animationType: "slide", transparent: true, visible: modalVisible, onRequestClose: () => setModalVisible(false) },
+            React.createElement(reactNative.View, { style: styles$2.modalContainer },
+                React.createElement(reactNative.View, { style: styles$2.modalContent },
+                    React.createElement(reactNative.Text, { style: styles$2.modalTitle }, "Add New Medication"),
+                    React.createElement(reactNative.TextInput, { style: styles$2.input, placeholder: "Medication Name", value: newMedicine.name, onChangeText: (text) => setNewMedicine({ ...newMedicine, name: text }) }),
+                    React.createElement(reactNative.TextInput, { style: styles$2.input, placeholder: "Dose (e.g., 100mg)", value: newMedicine.dose, onChangeText: (text) => setNewMedicine({ ...newMedicine, dose: text }) }),
+                    React.createElement(reactNative.View, { style: styles$2.buttonContainer },
+                        React.createElement(reactNative.Pressable, { style: [styles$2.button, styles$2.cancelButton], onPress: () => setModalVisible(false) },
+                            React.createElement(reactNative.Text, { style: styles$2.cancelButtonText }, "Cancel")),
+                        React.createElement(reactNative.Pressable, { style: [styles$2.button, styles$2.addButton], onPress: handleAddMedicine },
+                            React.createElement(reactNative.Text, { style: styles$2.addButtonText }, "Add"))))))));
 }
-const styles = reactNative.StyleSheet.create({
+const styles$2 = reactNative.StyleSheet.create({
+    full: {
+        width: '100%'
+    },
     container: {
         borderRadius: 12,
         overflow: 'hidden',
@@ -130,7 +167,7 @@ const styles = reactNative.StyleSheet.create({
         shadowOpacity: 0.05,
         shadowRadius: 2,
         elevation: 2,
-        width: '100%'
+        // width:'100%',
     },
     headerContainer: {
         backgroundColor: '#f5f5f5',
@@ -149,8 +186,9 @@ const styles = reactNative.StyleSheet.create({
         flex: 1,
         fontSize: 14,
         color: '#666666',
-        fontWeight: '500',
+        // fontWeight: '500',
         textAlign: 'center',
+        fontFamily: 'Manrope-Bold',
     },
     headerVerticalDivider: {
         width: 1,
@@ -175,12 +213,14 @@ const styles = reactNative.StyleSheet.create({
         fontSize: 14,
         color: '#000000',
         textAlign: 'center',
+        fontFamily: 'Manrope-Bold',
     },
     doseText: {
         flex: 1,
         fontSize: 14,
         color: '#000000',
         textAlign: 'center',
+        fontFamily: 'Manrope-Bold',
     },
     separator: {
         height: 1,
@@ -195,11 +235,385 @@ const styles = reactNative.StyleSheet.create({
         color: '#6366f1',
         fontSize: 14,
         fontWeight: '400',
+        fontFamily: 'Manrope-Bold',
+    },
+    addButton: {
+        backgroundColor: '#6366f1',
+        marginHorizontal: 16,
+        marginTop: 8,
+        marginBottom: 16,
+        padding: 12,
+        borderRadius: 12,
+        alignItems: 'center',
+    },
+    addButtonText: {
+        color: 'white',
+        fontSize: 16,
+        fontFamily: 'Manrope-Bold',
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        borderRadius: 12,
+        padding: 20,
+        width: '90%',
+        maxWidth: 400,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: '600',
+        marginBottom: 20,
+        textAlign: 'center',
+        color: '#000000',
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#e5e5e5',
+        borderRadius: 8,
+        padding: 12,
+        marginBottom: 16,
+        fontSize: 16,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        gap: 12,
+    },
+    button: {
+        flex: 1,
+        padding: 12,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    cancelButton: {
+        backgroundColor: '#f5f5f5',
+        marginHorizontal: 16,
+        marginTop: 8,
+        marginBottom: 16,
+        padding: 12,
+        borderRadius: 12,
+        alignItems: 'center',
+    },
+    cancelButtonText: {
+        color: '#666666',
+        fontSize: 16,
+        fontWeight: '500',
+    },
+});
+
+const severityLevels = {
+    'Minimal': 1,
+    'Mild': 2,
+    'Moderate': 3,
+    'Moderately Severe': 4,
+    'Severe': 5,
+};
+const defaultData = [
+    { date: '2023-12-22', severity: 'Severe' },
+    { date: '2023-12-31', severity: 'Mild' },
+];
+const SeverityTracker = ({ data = [] }) => {
+    const chartData = data.length ? data : defaultData;
+    const formatData = () => {
+        return {
+            labels: chartData.map(item => {
+                const date = new Date(item.date);
+                return `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`;
+            }),
+            datasets: [{
+                    data: chartData.map(item => severityLevels[item.severity]),
+                    color: (opacity = 1) => `rgba(102, 51, 204, ${opacity})`,
+                    strokeWidth: 2,
+                }],
+        };
+    };
+    return (React.createElement(reactNative.View, { style: styles$1.container },
+        React.createElement(reactNative.View, { style: styles$1.header }),
+        React.createElement(reactNativeChartKit.LineChart, { data: formatData(), width: reactNative.Dimensions.get('window').width - 32, height: 220, chartConfig: {
+                backgroundColor: '#ffffff',
+                backgroundGradientFrom: '#ffffff',
+                backgroundGradientTo: '#ffffff',
+                decimalPlaces: 0,
+                color: (opacity = 1) => `rgba(102, 51, 204, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(128, 128, 128, ${opacity})`,
+                style: {
+                    borderRadius: 16,
+                },
+                propsForDots: {
+                    r: '6',
+                    strokeWidth: '2',
+                    stroke: '#6633cc',
+                },
+                propsForBackgroundLines: {
+                    strokeDasharray: '6, 6',
+                    stroke: 'rgba(128, 128, 128, 0.2)',
+                },
+            }, bezier: true, style: styles$1.chart, yAxisLabel: "", yAxisSuffix: "", fromZero: true, segments: 5, formatYLabel: (value) => {
+                const numberValue = Number(value);
+                const levels = ['', 'Minimal', 'Mild', 'Moderate', 'Moderately Severe', 'Severe'];
+                return numberValue >= 0 && numberValue < levels.length ? levels[numberValue] : '';
+            } })));
+};
+const styles$1 = reactNative.StyleSheet.create({
+    container: {
+        backgroundColor: '#f5f5f5',
+        padding: 8,
+        borderRadius: 8,
+        width: '100%'
+    },
+    header: {
+        flexDirection: 'row',
+        marginBottom: 16,
+        alignItems: 'center',
+    },
+    timeframeTab: {
+        backgroundColor: '#6633cc',
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        borderRadius: 8,
+        marginRight: 12,
+    },
+    timeframeText: {
+        color: '#ffffff',
+        fontSize: 16,
+        fontWeight: '600',
+    },
+    timeframeOption: {
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        marginRight: 12,
+    },
+    timeframeOptionText: {
+        color: '#666666',
+        fontSize: 16,
+    },
+    chart: {
+        marginVertical: 8,
+        borderRadius: 16,
+    },
+});
+
+const UpcomingSessions = ({ sessions = [], title = "Upcoming Sessions", styles, statusColors = {
+    confirmed: {
+        backgroundColor: '#9F7AEA',
+        textColor: '#fff'
+    },
+    pending: {
+        backgroundColor: '#E9D8FD',
+        textColor: '#805AD5'
+    }
+}, onSessionPress, dateFormat = 'EEEE, MMMM d', timeFormat = 'h:mm a', renderCustomHeader, renderCustomSessionCard }) => {
+    const renderSessionCard = ({ item }) => {
+        if (renderCustomSessionCard) {
+            return renderCustomSessionCard(item);
+        }
+        const timeString = dateFns.format(item.date, timeFormat);
+        return (React.createElement(reactNative.TouchableOpacity, { style: [defaultStyles.sessionCard, styles?.sessionCard], onPress: () => onSessionPress?.(item) },
+            React.createElement(reactNative.View, { style: [defaultStyles.timeContainer, styles?.timeContainer] },
+                React.createElement(reactNative.Text, { style: [defaultStyles.time, styles?.time] }, timeString),
+                React.createElement(reactNative.Text, { style: [defaultStyles.duration, styles?.duration] }, item.duration)),
+            React.createElement(reactNative.View, { style: [defaultStyles.sessionInfo, styles?.sessionInfo] },
+                React.createElement(reactNative.Text, { style: [defaultStyles.doctorName, styles?.doctorName] }, item.doctorName),
+                React.createElement(reactNative.Text, { style: [defaultStyles.sessionType, styles?.sessionType] }, item.type),
+                React.createElement(reactNative.View, { style: [
+                        defaultStyles.statusBadge,
+                        { backgroundColor: statusColors[item.status]?.backgroundColor },
+                        styles?.statusBadge
+                    ] },
+                    React.createElement(reactNative.Text, { style: [
+                            defaultStyles.statusText,
+                            { color: statusColors[item.status]?.textColor },
+                            styles?.statusText
+                        ] }, item.status.charAt(0).toUpperCase() + item.status.slice(1))))));
+    };
+    const renderDateHeader = (date) => {
+        if (renderCustomHeader) {
+            return renderCustomHeader(date);
+        }
+        return (React.createElement(reactNative.View, { style: [defaultStyles.dateHeader, styles?.dateHeader] },
+            React.createElement(reactNative.Text, { style: [defaultStyles.dateText, styles?.dateText] }, dateFns.format(date, dateFormat))));
+    };
+    const groupedSessions = sessions.reduce((acc, session) => {
+        const dateString = dateFns.format(session.date, 'yyyy-MM-dd');
+        if (!acc[dateString]) {
+            acc[dateString] = [];
+        }
+        acc[dateString].push(session);
+        return acc;
+    }, {});
+    const renderGroup = () => {
+        return Object.entries(groupedSessions).map(([date, dateSessions]) => (React.createElement(reactNative.View, { key: date },
+            renderDateHeader(new Date(date)),
+            dateSessions.map((session) => (React.createElement(reactNative.View, { key: session.id }, renderSessionCard({ item: session })))))));
+    };
+    return (React.createElement(reactNative.ScrollView, { style: [defaultStyles.container, styles?.container], nestedScrollEnabled: true },
+        React.createElement(reactNative.Text, { style: [defaultStyles.title, styles?.title] }, title),
+        React.createElement(reactNative.FlatList, { data: [1], scrollEnabled: false, renderItem: () => (React.createElement(reactNative.View, { style: [defaultStyles.sessionsContainer, styles?.sessionsContainer] }, renderGroup())), keyExtractor: () => 'sessions', showsVerticalScrollIndicator: false })));
+};
+const defaultStyles = reactNative.StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#FAF5FF',
+        padding: 16,
+        borderRadius: 18,
+    },
+    title: {
+        fontSize: 24,
+        fontFamily: 'Manrope-Bold',
+        color: '#553C9A',
+        marginBottom: 20,
+    },
+    sessionsContainer: {
+        gap: 16,
+    },
+    dateHeader: {
+        marginVertical: 12,
+    },
+    dateText: {
+        fontSize: 18,
+        fontFamily: 'Manrope-Bold',
+        color: '#6B46C1',
+    },
+    sessionCard: {
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        padding: 16,
+        flexDirection: 'row',
+        marginBottom: 12,
+        shadowColor: '#6B46C1',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+        elevation: 3,
+    },
+    timeContainer: {
+        marginRight: 16,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingRight: 16,
+        borderRightWidth: 1,
+        borderRightColor: '#E9D8FD',
+    },
+    time: {
+        fontSize: 16,
+        fontFamily: 'Manrope-Bold',
+        color: '#553C9A',
+        marginBottom: 4,
+    },
+    duration: {
+        fontSize: 12,
+        color: '#805AD5',
+    },
+    sessionInfo: {
+        flex: 1,
+    },
+    doctorName: {
+        fontSize: 16,
+        fontFamily: 'Manrope-Bold',
+        color: '#44337A',
+        marginBottom: 4,
+    },
+    sessionType: {
+        fontSize: 14,
+        color: '#6B46C1',
+        marginBottom: 8,
+    },
+    statusBadge: {
+        alignSelf: 'flex-start',
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 12,
+    },
+    statusText: {
+        fontSize: 12,
+        fontFamily: 'Manrope-Bold',
+    },
+});
+
+const SkeletonLoading = () => {
+    // Create refs for each line's animation
+    const lineAnims = [
+        React.useRef(new reactNative.Animated.Value(0)).current,
+        React.useRef(new reactNative.Animated.Value(0)).current,
+        React.useRef(new reactNative.Animated.Value(0)).current,
+        React.useRef(new reactNative.Animated.Value(0)).current,
+    ];
+    React.useEffect(() => {
+        // Create sequential animations for each line
+        const createLineAnimation = (anim, delay) => reactNative.Animated.sequence([
+            reactNative.Animated.timing(anim, {
+                toValue: 1,
+                duration: 800,
+                delay,
+                useNativeDriver: true,
+            }),
+            reactNative.Animated.timing(anim, {
+                toValue: 0.4,
+                duration: 600,
+                useNativeDriver: true,
+            }),
+        ]);
+        // Combine all line animations into a staggered sequence
+        const loadingAnimation = reactNative.Animated.loop(reactNative.Animated.stagger(200, lineAnims.map((anim, index) => createLineAnimation(anim, index * 100))));
+        loadingAnimation.start();
+        return () => {
+            lineAnims.forEach(anim => anim.stopAnimation());
+        };
+    }, []);
+    // Generate style for each line with width and opacity animations
+    const getLineStyle = (index) => ({
+        opacity: lineAnims[index].interpolate({
+            inputRange: [0, 0.5, 1],
+            outputRange: [0.4, 1, 0.4],
+        }),
+        transform: [{
+                scaleX: lineAnims[index].interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0.7, 1],
+                }),
+            }],
+    });
+    return (React.createElement(reactNative.View, { style: styles.container }, lineAnims.map((_, index) => (React.createElement(reactNative.Animated.View, { key: index, style: [
+            styles.line,
+            getLineStyle(index),
+            // Vary line widths to make it look more natural
+            { width: `${85 + (index % 2) * 10}%` },
+        ] })))));
+};
+const styles = reactNative.StyleSheet.create({
+    container: {
+        padding: 16,
+        gap: 12,
+    },
+    line: {
+        height: 12,
+        backgroundColor: "#7639DE",
+        borderRadius: 6,
+        opacity: 0.4,
     },
 });
 
 exports.Button = Button;
 exports.Card = Card;
-exports.MedicineList = MedicineList;
+exports.MedicineManager = MedicineManager;
+exports.SkeletonLoading = SkeletonLoading;
+exports.SymptomTracker = SeverityTracker;
+exports.UpcomingSessions = UpcomingSessions;
 exports.WeatherWidget = WeatherWidget;
 //# sourceMappingURL=index.js.map
