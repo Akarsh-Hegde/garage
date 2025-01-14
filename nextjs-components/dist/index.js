@@ -1677,5 +1677,5 @@ exports.Button = Button;
 exports.Card = Card;
 exports.ListView = ListView$1;
 exports.ListViewDynamic = ListView;
-exports.PaymentForm = RazorpayPayment;
+exports.RazorpayPayment = RazorpayPayment;
 exports.WeatherWidget = WeatherWidget;

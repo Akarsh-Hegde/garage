@@ -1671,4 +1671,4 @@ const RazorpayPayment = () => {
             } }, "Pay Now")));
 };
 
-export { Button, Card, ListView$1 as ListView, ListView as ListViewDynamic, RazorpayPayment as PaymentForm, WeatherWidget };
+export { Button, Card, ListView$1 as ListView, ListView as ListViewDynamic, RazorpayPayment, WeatherWidget };
