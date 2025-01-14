@@ -2,7 +2,7 @@
 import React from 'react';
 import Script from 'next/script';
 
-const RazorpayPayment = () => {
+const RazorpayPayment:  React.FC = () => {
   const handlePayment = async () => {
     try {
       // User details (you can replace these with dynamic values as needed)
