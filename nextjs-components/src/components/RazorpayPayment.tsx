@@ -1,41 +1,39 @@
-
-import React from 'react';
 import Script from 'next/script';
+import React from 'react';
 
-const RazorpayPayment:  React.FC = () => {
+const RazorpayPayment = () => {
   const handlePayment = async () => {
     try {
-      // User details (you can replace these with dynamic values as needed)
-      const userDetails = {
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        contact: '1234567890',
-      };
+      // Ensure the script is loaded
+      if (!(window as any).Razorpay) {
+        alert('Razorpay script is not loaded yet. Please try again.');
+        return;
+      }
 
       // API call to create an order
       const response = await fetch('http://localhost:5000/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: 5000, // Amount in the smallest currency unit (e.g., paise for INR)
+          amount: 5000,
           itemName: 'Premium Membership',
-          userDetails,
+          userDetails: {
+            name: 'John Doe',
+            email: 'john.doe@example.com',
+            contact: '1234567890',
+          },
         }),
       });
 
       const { razorpayOptions } = await response.json();
 
-      // Attach the payment handler to the Razorpay options
+      // Attach the payment handler
       razorpayOptions.handler = function (paymentResponse: any) {
         alert(`Payment Successful! Payment ID: ${paymentResponse.razorpay_payment_id}`);
-        console.log('Payment Details:', paymentResponse);
-        // You can also make a POST request to your backend to log payment success.
       };
 
-      // Initialize Razorpay instance
+      // Create and open the Razorpay modal
       const razorpayInstance = new (window as any).Razorpay(razorpayOptions);
-
-      // Open the Razorpay payment modal
       razorpayInstance.open();
     } catch (error) {
       console.error('Error creating Razorpay order:', error);
@@ -45,8 +43,12 @@ const RazorpayPayment:  React.FC = () => {
 
   return (
     <>
-      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="beforeInteractive" />
-
+      <Script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        strategy="beforeInteractive"
+        onLoad={() => console.log('Razorpay script loaded')}
+        onError={(e) => console.error('Failed to load Razorpay script', e)}
+      />
       <button
         onClick={handlePayment}
         style={{
