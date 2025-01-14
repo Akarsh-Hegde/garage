@@ -1,12 +1,13 @@
 import React from 'react';
-interface Medicine {
+export interface Medicine {
     name: string;
     dose: string;
-    date: Date;
+    date?: Date;
 }
-interface MedicineListProps {
-    medicines: Medicine[];
+interface MedicineManagerProps {
+    initialMedicines: Medicine[];
     initialVisibleItems?: number;
+    onMedicineAdded?: (medicine: Medicine) => void;
 }
-export default function MedicineList({ medicines, initialVisibleItems, }: MedicineListProps): React.JSX.Element;
+export default function MedicineManager({ initialMedicines, initialVisibleItems, onMedicineAdded, }: MedicineManagerProps): React.JSX.Element;
 export {};

@@ -14,6 +14,6 @@ export default {
       sourcemap: true,
     },
   ],
-  external: ["react", "react-dom", "react-native"],
+  external: ["react", "react-dom", "react-native", "date-fns"],
   plugins: [typescript()],
 };
