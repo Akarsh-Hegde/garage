@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, FlatList, Pressable, Modal, TextInput, Dimensions, ScrollView, Animated } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, FlatList, Pressable, Modal, TextInput, Dimensions, ScrollView, Animated, Image } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { format } from 'date-fns';
 import { AlertCircle } from 'lucide-react-native';
 
 const Button = ({ label, onPress }) => {
-    return (React.createElement(TouchableOpacity, { style: styles$6.button, onPress: onPress },
-        React.createElement(Text, { style: styles$6.text }, label)));
+    return (React.createElement(TouchableOpacity, { style: styles$7.button, onPress: onPress },
+        React.createElement(Text, { style: styles$7.text }, label)));
 };
-const styles$6 = StyleSheet.create({
+const styles$7 = StyleSheet.create({
     button: {
         padding: 10,
         backgroundColor: '#007BFF',
@@ -22,11 +22,11 @@ const styles$6 = StyleSheet.create({
 });
 
 const Card = ({ title, content }) => {
-    return (React.createElement(View, { style: styles$5.card },
-        React.createElement(Text, { style: styles$5.title }, title),
-        React.createElement(Text, { style: styles$5.content }, content)));
+    return (React.createElement(View, { style: styles$6.card },
+        React.createElement(Text, { style: styles$6.title }, title),
+        React.createElement(Text, { style: styles$6.content }, content)));
 };
-const styles$5 = StyleSheet.create({
+const styles$6 = StyleSheet.create({
     card: {
         padding: 15,
         backgroundColor: '#FFF',
@@ -47,18 +47,18 @@ const styles$5 = StyleSheet.create({
     },
 });
 
-const WeatherWidget = ({ location, temperature, description }) => (React.createElement(View, { style: styles$4.widgetContainer },
-    React.createElement(View, { style: styles$4.iconContainer },
+const WeatherWidget = ({ location, temperature, description }) => (React.createElement(View, { style: styles$5.widgetContainer },
+    React.createElement(View, { style: styles$5.iconContainer },
         React.createElement(Text, null, "\u26C5")),
-    React.createElement(View, { style: styles$4.weatherContent },
-        React.createElement(Text, { style: styles$4.weatherTitle },
+    React.createElement(View, { style: styles$5.weatherContent },
+        React.createElement(Text, { style: styles$5.weatherTitle },
             "Weather Update: ",
             location),
-        React.createElement(Text, { style: styles$4.temperature },
+        React.createElement(Text, { style: styles$5.temperature },
             temperature,
             "\u00B0C"),
-        React.createElement(Text, { style: styles$4.description }, description))));
-const styles$4 = StyleSheet.create({
+        React.createElement(Text, { style: styles$5.description }, description))));
+const styles$5 = StyleSheet.create({
     widgetContainer: {
         flexDirection: 'row',
         alignItems: 'flex-start',
@@ -119,36 +119,36 @@ function MedicineManager({ initialMedicines = [], initialVisibleItems = 3, onMed
             setModalVisible(false);
         }
     };
-    const renderItem = ({ item }) => (React.createElement(View, { style: styles$3.row },
-        React.createElement(Text, { style: styles$3.medicineText }, item.name),
-        React.createElement(View, { style: styles$3.verticalDivider }),
-        React.createElement(Text, { style: styles$3.doseText }, item.dose)));
-    const renderHeader = () => (React.createElement(View, { style: styles$3.headerContainer },
-        React.createElement(View, { style: styles$3.header },
-            React.createElement(Text, { style: styles$3.headerText }, "Medicine"),
-            React.createElement(View, { style: styles$3.headerVerticalDivider }),
-            React.createElement(Text, { style: styles$3.headerText }, "Dose"))));
-    return (React.createElement(View, { style: styles$3.full },
-        React.createElement(View, { style: styles$3.container },
+    const renderItem = ({ item }) => (React.createElement(View, { style: styles$4.row },
+        React.createElement(Text, { style: styles$4.medicineText }, item.name),
+        React.createElement(View, { style: styles$4.verticalDivider }),
+        React.createElement(Text, { style: styles$4.doseText }, item.dose)));
+    const renderHeader = () => (React.createElement(View, { style: styles$4.headerContainer },
+        React.createElement(View, { style: styles$4.header },
+            React.createElement(Text, { style: styles$4.headerText }, "Medicine"),
+            React.createElement(View, { style: styles$4.headerVerticalDivider }),
+            React.createElement(Text, { style: styles$4.headerText }, "Dose"))));
+    return (React.createElement(View, { style: styles$4.full },
+        React.createElement(View, { style: styles$4.container },
             renderHeader(),
-            React.createElement(FlatList, { data: displayedMedicines, renderItem: renderItem, keyExtractor: (item, index) => `${item.name}-${index}`, scrollEnabled: false, ItemSeparatorComponent: () => React.createElement(View, { style: styles$3.separator }) }),
-            medicines.length > initialVisibleItems && (React.createElement(Pressable, { onPress: () => setExpanded(!expanded), style: styles$3.seeMoreContainer },
-                React.createElement(Text, { style: styles$3.seeMoreText }, expanded ? 'See less' : 'See more')))),
-        React.createElement(Pressable, { onPress: () => setModalVisible(true), style: styles$3.addButton },
-            React.createElement(Text, { style: styles$3.addButtonText }, "Add Medication")),
+            React.createElement(FlatList, { data: displayedMedicines, renderItem: renderItem, keyExtractor: (item, index) => `${item.name}-${index}`, scrollEnabled: false, ItemSeparatorComponent: () => React.createElement(View, { style: styles$4.separator }) }),
+            medicines.length > initialVisibleItems && (React.createElement(Pressable, { onPress: () => setExpanded(!expanded), style: styles$4.seeMoreContainer },
+                React.createElement(Text, { style: styles$4.seeMoreText }, expanded ? 'See less' : 'See more')))),
+        React.createElement(Pressable, { onPress: () => setModalVisible(true), style: styles$4.addButton },
+            React.createElement(Text, { style: styles$4.addButtonText }, "Add Medication")),
         React.createElement(Modal, { animationType: "slide", transparent: true, visible: modalVisible, onRequestClose: () => setModalVisible(false) },
-            React.createElement(View, { style: styles$3.modalContainer },
-                React.createElement(View, { style: styles$3.modalContent },
-                    React.createElement(Text, { style: styles$3.modalTitle }, "Add New Medication"),
-                    React.createElement(TextInput, { style: styles$3.input, placeholder: "Medication Name", value: newMedicine.name, onChangeText: (text) => setNewMedicine({ ...newMedicine, name: text }) }),
-                    React.createElement(TextInput, { style: styles$3.input, placeholder: "Dose (e.g., 100mg)", value: newMedicine.dose, onChangeText: (text) => setNewMedicine({ ...newMedicine, dose: text }) }),
-                    React.createElement(View, { style: styles$3.buttonContainer },
-                        React.createElement(Pressable, { style: [styles$3.button, styles$3.cancelButton], onPress: () => setModalVisible(false) },
-                            React.createElement(Text, { style: styles$3.cancelButtonText }, "Cancel")),
-                        React.createElement(Pressable, { style: [styles$3.button, styles$3.addButton], onPress: handleAddMedicine },
-                            React.createElement(Text, { style: styles$3.addButtonText }, "Add"))))))));
+            React.createElement(View, { style: styles$4.modalContainer },
+                React.createElement(View, { style: styles$4.modalContent },
+                    React.createElement(Text, { style: styles$4.modalTitle }, "Add New Medication"),
+                    React.createElement(TextInput, { style: styles$4.input, placeholder: "Medication Name", value: newMedicine.name, onChangeText: (text) => setNewMedicine({ ...newMedicine, name: text }) }),
+                    React.createElement(TextInput, { style: styles$4.input, placeholder: "Dose (e.g., 100mg)", value: newMedicine.dose, onChangeText: (text) => setNewMedicine({ ...newMedicine, dose: text }) }),
+                    React.createElement(View, { style: styles$4.buttonContainer },
+                        React.createElement(Pressable, { style: [styles$4.button, styles$4.cancelButton], onPress: () => setModalVisible(false) },
+                            React.createElement(Text, { style: styles$4.cancelButtonText }, "Cancel")),
+                        React.createElement(Pressable, { style: [styles$4.button, styles$4.addButton], onPress: handleAddMedicine },
+                            React.createElement(Text, { style: styles$4.addButtonText }, "Add"))))))));
 }
-const styles$3 = StyleSheet.create({
+const styles$4 = StyleSheet.create({
     full: {
         width: '100%'
     },
@@ -339,8 +339,8 @@ const SeverityTracker = ({ data = [] }) => {
                 }],
         };
     };
-    return (React.createElement(View, { style: styles$2.container },
-        React.createElement(View, { style: styles$2.header }),
+    return (React.createElement(View, { style: styles$3.container },
+        React.createElement(View, { style: styles$3.header }),
         React.createElement(LineChart, { data: formatData(), width: Dimensions.get('window').width - 32, height: 220, chartConfig: {
                 backgroundColor: '#ffffff',
                 backgroundGradientFrom: '#ffffff',
@@ -360,13 +360,13 @@ const SeverityTracker = ({ data = [] }) => {
                     strokeDasharray: '6, 6',
                     stroke: 'rgba(128, 128, 128, 0.2)',
                 },
-            }, bezier: true, style: styles$2.chart, yAxisLabel: "", yAxisSuffix: "", fromZero: true, segments: 5, formatYLabel: (value) => {
+            }, bezier: true, style: styles$3.chart, yAxisLabel: "", yAxisSuffix: "", fromZero: true, segments: 5, formatYLabel: (value) => {
                 const numberValue = Number(value);
                 const levels = ['', 'Minimal', 'Mild', 'Moderate', 'Moderately Severe', 'Severe'];
                 return numberValue >= 0 && numberValue < levels.length ? levels[numberValue] : '';
             } })));
 };
-const styles$2 = StyleSheet.create({
+const styles$3 = StyleSheet.create({
     container: {
         backgroundColor: '#f5f5f5',
         padding: 8,
@@ -588,14 +588,14 @@ const SkeletonLoading = () => {
                 }),
             }],
     });
-    return (React.createElement(View, { style: styles$1.container }, lineAnims.map((_, index) => (React.createElement(Animated.View, { key: index, style: [
-            styles$1.line,
+    return (React.createElement(View, { style: styles$2.container }, lineAnims.map((_, index) => (React.createElement(Animated.View, { key: index, style: [
+            styles$2.line,
             getLineStyle(index),
             // Vary line widths to make it look more natural
             { width: `${85 + (index % 2) * 10}%` },
         ] })))));
 };
-const styles$1 = StyleSheet.create({
+const styles$2 = StyleSheet.create({
     container: {
         padding: 16,
         gap: 12,
@@ -609,13 +609,13 @@ const styles$1 = StyleSheet.create({
 });
 
 const ErrorFallback = () => {
-    return (React.createElement(View, { style: styles.errorContainer },
-        React.createElement(View, { style: styles.errorIconContainer },
+    return (React.createElement(View, { style: styles$1.errorContainer },
+        React.createElement(View, { style: styles$1.errorIconContainer },
             React.createElement(AlertCircle, { size: 24, color: "#7639DE" })),
-        React.createElement(Text, { style: styles.errorTitle }, "Component Not Found"),
-        React.createElement(Text, { style: styles.errorMessage }, "I understand what you're asking for, but I don't have the right component for you. I'm working on expanding my capabilities!")));
+        React.createElement(Text, { style: styles$1.errorTitle }, "Component Not Found"),
+        React.createElement(Text, { style: styles$1.errorMessage }, "I understand what you're asking for, but I don't have the right component for you. I'm working on expanding my capabilities!")));
 };
-const styles = StyleSheet.create({
+const styles$1 = StyleSheet.create({
     errorContainer: {
         backgroundColor: '#fff',
         borderRadius: 12,
@@ -660,5 +660,105 @@ const styles = StyleSheet.create({
     },
 });
 
-export { Button, Card, ErrorFallback as Error, MedicineManager, SkeletonLoading, SeverityTracker as SymptomTracker, UpcomingSessions, WeatherWidget };
+function DietPlanComponent({ mealPlans, }) {
+    const groupedMeals = mealPlans.reduce((acc, item) => {
+        if (!acc[item.mealTime]) {
+            acc[item.mealTime] = [];
+        }
+        acc[item.mealTime].push(item);
+        return acc;
+    }, {});
+    const renderFoodItem = (item) => (React.createElement(TouchableOpacity, { key: item.id, style: styles.foodItem },
+        React.createElement(View, { style: styles.foodDetails },
+            React.createElement(Text, { style: styles.foodName }, item.name),
+            item.imageUrl && (React.createElement(Image, { source: { uri: item.imageUrl }, style: styles.foodImage, resizeMode: "cover" })),
+            React.createElement(Text, { style: styles.textureLabel },
+                "Texture: ",
+                item.texture),
+            React.createElement(View, { style: styles.sensoryInfo },
+                React.createElement(Text, { style: styles.sectionTitle }, "Sensory Considerations:"),
+                item.sensoryConsiderations?.map((consideration, index) => (React.createElement(Text, { key: index, style: styles.sensoryText },
+                    "\u2022 ",
+                    consideration)))),
+            item.allergyWarnings && (React.createElement(View, { style: styles.allergyWarnings },
+                React.createElement(Text, { style: styles.warningText },
+                    "\u26A0\uFE0F Allergy Alert: ",
+                    item.allergyWarnings.join(', ')))))));
+    return (React.createElement(ScrollView, { style: styles.container }, Object.entries(groupedMeals).map(([mealTime, foods]) => (React.createElement(View, { key: mealTime, style: styles.mealSection },
+        React.createElement(Text, { style: styles.mealTimeTitle }, mealTime.charAt(0).toUpperCase() + mealTime.slice(1)),
+        foods.map(renderFoodItem))))));
+}
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 16,
+        backgroundColor: '#FAF5FF',
+        borderRadius: 16
+    },
+    mealSection: {
+        marginBottom: 20,
+    },
+    mealTimeTitle: {
+        fontSize: 20,
+        marginBottom: 10,
+        color: '#553C9A',
+        fontFamily: 'Manrope-Bold',
+    },
+    foodItem: {
+        flexDirection: 'row',
+        borderRadius: 8,
+        padding: 12,
+        marginBottom: 10,
+        backgroundColor: '#e6ccff',
+    },
+    foodImage: {
+        width: 80,
+        height: 80,
+        borderRadius: 8,
+        marginVertical: 10
+    },
+    foodDetails: {
+        flex: 1,
+    },
+    foodName: {
+        fontSize: 18,
+        marginBottom: 8,
+        color: '#333333',
+        fontFamily: 'Manrope-Bold'
+    },
+    textureLabel: {
+        fontSize: 14,
+        marginBottom: 4,
+        color: '#333333',
+        fontFamily: 'Manrope-SemiBold'
+    },
+    sensoryInfo: {
+        marginTop: 4,
+    },
+    sectionTitle: {
+        fontSize: 14,
+        fontFamily: 'Manrope-Bold',
+        marginBottom: 2,
+        color: '#333333',
+    },
+    sensoryText: {
+        fontSize: 12,
+        marginLeft: 8,
+        color: '#333333',
+        fontFamily: 'Manrope-Bold'
+    },
+    allergyWarnings: {
+        marginTop: 4,
+        padding: 4,
+        backgroundColor: '#FFE0E0',
+        borderRadius: 4,
+    },
+    warningText: {
+        color: '#D32F2F',
+        fontSize: 12,
+        fontFamily: 'Manrope-Regular'
+    },
+});
+
+export { Button, Card, DietPlanComponent as DietPlan, ErrorFallback as Error, MedicineManager, SkeletonLoading, SeverityTracker as SymptomTracker, UpcomingSessions, WeatherWidget };
 //# sourceMappingURL=index.es.js.map
