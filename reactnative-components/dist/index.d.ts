@@ -6,3 +6,4 @@ export { default as SymptomTracker } from './components/SymptomTracker';
 export { default as UpcomingSessions } from './components/UpcomingSessions';
 export { default as SkeletonLoading } from './components/SkeletonLoading';
 export { default as Error } from './components/Error';
+export { default as DietPlan } from './components/DietPlan';

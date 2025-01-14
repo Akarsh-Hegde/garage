@@ -7,10 +7,10 @@ var dateFns = require('date-fns');
 var lucideReactNative = require('lucide-react-native');
 
 const Button = ({ label, onPress }) => {
-    return (React.createElement(reactNative.TouchableOpacity, { style: styles$6.button, onPress: onPress },
-        React.createElement(reactNative.Text, { style: styles$6.text }, label)));
+    return (React.createElement(reactNative.TouchableOpacity, { style: styles$7.button, onPress: onPress },
+        React.createElement(reactNative.Text, { style: styles$7.text }, label)));
 };
-const styles$6 = reactNative.StyleSheet.create({
+const styles$7 = reactNative.StyleSheet.create({
     button: {
         padding: 10,
         backgroundColor: '#007BFF',
@@ -24,11 +24,11 @@ const styles$6 = reactNative.StyleSheet.create({
 });
 
 const Card = ({ title, content }) => {
-    return (React.createElement(reactNative.View, { style: styles$5.card },
-        React.createElement(reactNative.Text, { style: styles$5.title }, title),
-        React.createElement(reactNative.Text, { style: styles$5.content }, content)));
+    return (React.createElement(reactNative.View, { style: styles$6.card },
+        React.createElement(reactNative.Text, { style: styles$6.title }, title),
+        React.createElement(reactNative.Text, { style: styles$6.content }, content)));
 };
-const styles$5 = reactNative.StyleSheet.create({
+const styles$6 = reactNative.StyleSheet.create({
     card: {
         padding: 15,
         backgroundColor: '#FFF',
@@ -49,18 +49,18 @@ const styles$5 = reactNative.StyleSheet.create({
     },
 });
 
-const WeatherWidget = ({ location, temperature, description }) => (React.createElement(reactNative.View, { style: styles$4.widgetContainer },
-    React.createElement(reactNative.View, { style: styles$4.iconContainer },
+const WeatherWidget = ({ location, temperature, description }) => (React.createElement(reactNative.View, { style: styles$5.widgetContainer },
+    React.createElement(reactNative.View, { style: styles$5.iconContainer },
         React.createElement(reactNative.Text, null, "\u26C5")),
-    React.createElement(reactNative.View, { style: styles$4.weatherContent },
-        React.createElement(reactNative.Text, { style: styles$4.weatherTitle },
+    React.createElement(reactNative.View, { style: styles$5.weatherContent },
+        React.createElement(reactNative.Text, { style: styles$5.weatherTitle },
             "Weather Update: ",
             location),
-        React.createElement(reactNative.Text, { style: styles$4.temperature },
+        React.createElement(reactNative.Text, { style: styles$5.temperature },
             temperature,
             "\u00B0C"),
-        React.createElement(reactNative.Text, { style: styles$4.description }, description))));
-const styles$4 = reactNative.StyleSheet.create({
+        React.createElement(reactNative.Text, { style: styles$5.description }, description))));
+const styles$5 = reactNative.StyleSheet.create({
     widgetContainer: {
         flexDirection: 'row',
         alignItems: 'flex-start',
@@ -121,36 +121,36 @@ function MedicineManager({ initialMedicines = [], initialVisibleItems = 3, onMed
             setModalVisible(false);
         }
     };
-    const renderItem = ({ item }) => (React.createElement(reactNative.View, { style: styles$3.row },
-        React.createElement(reactNative.Text, { style: styles$3.medicineText }, item.name),
-        React.createElement(reactNative.View, { style: styles$3.verticalDivider }),
-        React.createElement(reactNative.Text, { style: styles$3.doseText }, item.dose)));
-    const renderHeader = () => (React.createElement(reactNative.View, { style: styles$3.headerContainer },
-        React.createElement(reactNative.View, { style: styles$3.header },
-            React.createElement(reactNative.Text, { style: styles$3.headerText }, "Medicine"),
-            React.createElement(reactNative.View, { style: styles$3.headerVerticalDivider }),
-            React.createElement(reactNative.Text, { style: styles$3.headerText }, "Dose"))));
-    return (React.createElement(reactNative.View, { style: styles$3.full },
-        React.createElement(reactNative.View, { style: styles$3.container },
+    const renderItem = ({ item }) => (React.createElement(reactNative.View, { style: styles$4.row },
+        React.createElement(reactNative.Text, { style: styles$4.medicineText }, item.name),
+        React.createElement(reactNative.View, { style: styles$4.verticalDivider }),
+        React.createElement(reactNative.Text, { style: styles$4.doseText }, item.dose)));
+    const renderHeader = () => (React.createElement(reactNative.View, { style: styles$4.headerContainer },
+        React.createElement(reactNative.View, { style: styles$4.header },
+            React.createElement(reactNative.Text, { style: styles$4.headerText }, "Medicine"),
+            React.createElement(reactNative.View, { style: styles$4.headerVerticalDivider }),
+            React.createElement(reactNative.Text, { style: styles$4.headerText }, "Dose"))));
+    return (React.createElement(reactNative.View, { style: styles$4.full },
+        React.createElement(reactNative.View, { style: styles$4.container },
             renderHeader(),
-            React.createElement(reactNative.FlatList, { data: displayedMedicines, renderItem: renderItem, keyExtractor: (item, index) => `${item.name}-${index}`, scrollEnabled: false, ItemSeparatorComponent: () => React.createElement(reactNative.View, { style: styles$3.separator }) }),
-            medicines.length > initialVisibleItems && (React.createElement(reactNative.Pressable, { onPress: () => setExpanded(!expanded), style: styles$3.seeMoreContainer },
-                React.createElement(reactNative.Text, { style: styles$3.seeMoreText }, expanded ? 'See less' : 'See more')))),
-        React.createElement(reactNative.Pressable, { onPress: () => setModalVisible(true), style: styles$3.addButton },
-            React.createElement(reactNative.Text, { style: styles$3.addButtonText }, "Add Medication")),
+            React.createElement(reactNative.FlatList, { data: displayedMedicines, renderItem: renderItem, keyExtractor: (item, index) => `${item.name}-${index}`, scrollEnabled: false, ItemSeparatorComponent: () => React.createElement(reactNative.View, { style: styles$4.separator }) }),
+            medicines.length > initialVisibleItems && (React.createElement(reactNative.Pressable, { onPress: () => setExpanded(!expanded), style: styles$4.seeMoreContainer },
+                React.createElement(reactNative.Text, { style: styles$4.seeMoreText }, expanded ? 'See less' : 'See more')))),
+        React.createElement(reactNative.Pressable, { onPress: () => setModalVisible(true), style: styles$4.addButton },
+            React.createElement(reactNative.Text, { style: styles$4.addButtonText }, "Add Medication")),
         React.createElement(reactNative.Modal, { animationType: "slide", transparent: true, visible: modalVisible, onRequestClose: () => setModalVisible(false) },
-            React.createElement(reactNative.View, { style: styles$3.modalContainer },
-                React.createElement(reactNative.View, { style: styles$3.modalContent },
-                    React.createElement(reactNative.Text, { style: styles$3.modalTitle }, "Add New Medication"),
-                    React.createElement(reactNative.TextInput, { style: styles$3.input, placeholder: "Medication Name", value: newMedicine.name, onChangeText: (text) => setNewMedicine({ ...newMedicine, name: text }) }),
-                    React.createElement(reactNative.TextInput, { style: styles$3.input, placeholder: "Dose (e.g., 100mg)", value: newMedicine.dose, onChangeText: (text) => setNewMedicine({ ...newMedicine, dose: text }) }),
-                    React.createElement(reactNative.View, { style: styles$3.buttonContainer },
-                        React.createElement(reactNative.Pressable, { style: [styles$3.button, styles$3.cancelButton], onPress: () => setModalVisible(false) },
-                            React.createElement(reactNative.Text, { style: styles$3.cancelButtonText }, "Cancel")),
-                        React.createElement(reactNative.Pressable, { style: [styles$3.button, styles$3.addButton], onPress: handleAddMedicine },
-                            React.createElement(reactNative.Text, { style: styles$3.addButtonText }, "Add"))))))));
+            React.createElement(reactNative.View, { style: styles$4.modalContainer },
+                React.createElement(reactNative.View, { style: styles$4.modalContent },
+                    React.createElement(reactNative.Text, { style: styles$4.modalTitle }, "Add New Medication"),
+                    React.createElement(reactNative.TextInput, { style: styles$4.input, placeholder: "Medication Name", value: newMedicine.name, onChangeText: (text) => setNewMedicine({ ...newMedicine, name: text }) }),
+                    React.createElement(reactNative.TextInput, { style: styles$4.input, placeholder: "Dose (e.g., 100mg)", value: newMedicine.dose, onChangeText: (text) => setNewMedicine({ ...newMedicine, dose: text }) }),
+                    React.createElement(reactNative.View, { style: styles$4.buttonContainer },
+                        React.createElement(reactNative.Pressable, { style: [styles$4.button, styles$4.cancelButton], onPress: () => setModalVisible(false) },
+                            React.createElement(reactNative.Text, { style: styles$4.cancelButtonText }, "Cancel")),
+                        React.createElement(reactNative.Pressable, { style: [styles$4.button, styles$4.addButton], onPress: handleAddMedicine },
+                            React.createElement(reactNative.Text, { style: styles$4.addButtonText }, "Add"))))))));
 }
-const styles$3 = reactNative.StyleSheet.create({
+const styles$4 = reactNative.StyleSheet.create({
     full: {
         width: '100%'
     },
@@ -341,8 +341,8 @@ const SeverityTracker = ({ data = [] }) => {
                 }],
         };
     };
-    return (React.createElement(reactNative.View, { style: styles$2.container },
-        React.createElement(reactNative.View, { style: styles$2.header }),
+    return (React.createElement(reactNative.View, { style: styles$3.container },
+        React.createElement(reactNative.View, { style: styles$3.header }),
         React.createElement(reactNativeChartKit.LineChart, { data: formatData(), width: reactNative.Dimensions.get('window').width - 32, height: 220, chartConfig: {
                 backgroundColor: '#ffffff',
                 backgroundGradientFrom: '#ffffff',
@@ -362,13 +362,13 @@ const SeverityTracker = ({ data = [] }) => {
                     strokeDasharray: '6, 6',
                     stroke: 'rgba(128, 128, 128, 0.2)',
                 },
-            }, bezier: true, style: styles$2.chart, yAxisLabel: "", yAxisSuffix: "", fromZero: true, segments: 5, formatYLabel: (value) => {
+            }, bezier: true, style: styles$3.chart, yAxisLabel: "", yAxisSuffix: "", fromZero: true, segments: 5, formatYLabel: (value) => {
                 const numberValue = Number(value);
                 const levels = ['', 'Minimal', 'Mild', 'Moderate', 'Moderately Severe', 'Severe'];
                 return numberValue >= 0 && numberValue < levels.length ? levels[numberValue] : '';
             } })));
 };
-const styles$2 = reactNative.StyleSheet.create({
+const styles$3 = reactNative.StyleSheet.create({
     container: {
         backgroundColor: '#f5f5f5',
         padding: 8,
@@ -590,14 +590,14 @@ const SkeletonLoading = () => {
                 }),
             }],
     });
-    return (React.createElement(reactNative.View, { style: styles$1.container }, lineAnims.map((_, index) => (React.createElement(reactNative.Animated.View, { key: index, style: [
-            styles$1.line,
+    return (React.createElement(reactNative.View, { style: styles$2.container }, lineAnims.map((_, index) => (React.createElement(reactNative.Animated.View, { key: index, style: [
+            styles$2.line,
             getLineStyle(index),
             // Vary line widths to make it look more natural
             { width: `${85 + (index % 2) * 10}%` },
         ] })))));
 };
-const styles$1 = reactNative.StyleSheet.create({
+const styles$2 = reactNative.StyleSheet.create({
     container: {
         padding: 16,
         gap: 12,
@@ -611,13 +611,13 @@ const styles$1 = reactNative.StyleSheet.create({
 });
 
 const ErrorFallback = () => {
-    return (React.createElement(reactNative.View, { style: styles.errorContainer },
-        React.createElement(reactNative.View, { style: styles.errorIconContainer },
+    return (React.createElement(reactNative.View, { style: styles$1.errorContainer },
+        React.createElement(reactNative.View, { style: styles$1.errorIconContainer },
             React.createElement(lucideReactNative.AlertCircle, { size: 24, color: "#7639DE" })),
-        React.createElement(reactNative.Text, { style: styles.errorTitle }, "Component Not Found"),
-        React.createElement(reactNative.Text, { style: styles.errorMessage }, "I understand what you're asking for, but I don't have the right component for you. I'm working on expanding my capabilities!")));
+        React.createElement(reactNative.Text, { style: styles$1.errorTitle }, "Component Not Found"),
+        React.createElement(reactNative.Text, { style: styles$1.errorMessage }, "I understand what you're asking for, but I don't have the right component for you. I'm working on expanding my capabilities!")));
 };
-const styles = reactNative.StyleSheet.create({
+const styles$1 = reactNative.StyleSheet.create({
     errorContainer: {
         backgroundColor: '#fff',
         borderRadius: 12,
@@ -662,8 +662,109 @@ const styles = reactNative.StyleSheet.create({
     },
 });
 
+function DietPlanComponent({ mealPlans, }) {
+    const groupedMeals = mealPlans.reduce((acc, item) => {
+        if (!acc[item.mealTime]) {
+            acc[item.mealTime] = [];
+        }
+        acc[item.mealTime].push(item);
+        return acc;
+    }, {});
+    const renderFoodItem = (item) => (React.createElement(reactNative.TouchableOpacity, { key: item.id, style: styles.foodItem },
+        React.createElement(reactNative.View, { style: styles.foodDetails },
+            React.createElement(reactNative.Text, { style: styles.foodName }, item.name),
+            item.imageUrl && (React.createElement(reactNative.Image, { source: { uri: item.imageUrl }, style: styles.foodImage, resizeMode: "cover" })),
+            React.createElement(reactNative.Text, { style: styles.textureLabel },
+                "Texture: ",
+                item.texture),
+            React.createElement(reactNative.View, { style: styles.sensoryInfo },
+                React.createElement(reactNative.Text, { style: styles.sectionTitle }, "Sensory Considerations:"),
+                item.sensoryConsiderations?.map((consideration, index) => (React.createElement(reactNative.Text, { key: index, style: styles.sensoryText },
+                    "\u2022 ",
+                    consideration)))),
+            item.allergyWarnings && (React.createElement(reactNative.View, { style: styles.allergyWarnings },
+                React.createElement(reactNative.Text, { style: styles.warningText },
+                    "\u26A0\uFE0F Allergy Alert: ",
+                    item.allergyWarnings.join(', ')))))));
+    return (React.createElement(reactNative.ScrollView, { style: styles.container }, Object.entries(groupedMeals).map(([mealTime, foods]) => (React.createElement(reactNative.View, { key: mealTime, style: styles.mealSection },
+        React.createElement(reactNative.Text, { style: styles.mealTimeTitle }, mealTime.charAt(0).toUpperCase() + mealTime.slice(1)),
+        foods.map(renderFoodItem))))));
+}
+const styles = reactNative.StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 16,
+        backgroundColor: '#FAF5FF',
+        borderRadius: 16
+    },
+    mealSection: {
+        marginBottom: 20,
+    },
+    mealTimeTitle: {
+        fontSize: 20,
+        marginBottom: 10,
+        color: '#553C9A',
+        fontFamily: 'Manrope-Bold',
+    },
+    foodItem: {
+        flexDirection: 'row',
+        borderRadius: 8,
+        padding: 12,
+        marginBottom: 10,
+        backgroundColor: '#e6ccff',
+    },
+    foodImage: {
+        width: 80,
+        height: 80,
+        borderRadius: 8,
+        marginVertical: 10
+    },
+    foodDetails: {
+        flex: 1,
+    },
+    foodName: {
+        fontSize: 18,
+        marginBottom: 8,
+        color: '#333333',
+        fontFamily: 'Manrope-Bold'
+    },
+    textureLabel: {
+        fontSize: 14,
+        marginBottom: 4,
+        color: '#333333',
+        fontFamily: 'Manrope-SemiBold'
+    },
+    sensoryInfo: {
+        marginTop: 4,
+    },
+    sectionTitle: {
+        fontSize: 14,
+        fontFamily: 'Manrope-Bold',
+        marginBottom: 2,
+        color: '#333333',
+    },
+    sensoryText: {
+        fontSize: 12,
+        marginLeft: 8,
+        color: '#333333',
+        fontFamily: 'Manrope-Bold'
+    },
+    allergyWarnings: {
+        marginTop: 4,
+        padding: 4,
+        backgroundColor: '#FFE0E0',
+        borderRadius: 4,
+    },
+    warningText: {
+        color: '#D32F2F',
+        fontSize: 12,
+        fontFamily: 'Manrope-Regular'
+    },
+});
+
 exports.Button = Button;
 exports.Card = Card;
+exports.DietPlan = DietPlanComponent;
 exports.Error = ErrorFallback;
 exports.MedicineManager = MedicineManager;
 exports.SkeletonLoading = SkeletonLoading;
