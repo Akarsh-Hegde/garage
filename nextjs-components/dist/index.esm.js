@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import require$$2 from 'react-dom';
 
 const Button = ({ label, onClick }) => {
     return React.createElement("button", { onClick: onClick }, label);
@@ -907,4 +908,767 @@ const styles = {
     },
 };
 
-export { Button, Card, ListView$1 as ListView, ListView as ListViewDynamic, WeatherWidget };
+function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+var script$1 = {exports: {}};
+
+var _interop_require_default = {};
+
+var hasRequired_interop_require_default;
+
+function require_interop_require_default () {
+	if (hasRequired_interop_require_default) return _interop_require_default;
+	hasRequired_interop_require_default = 1;
+
+	_interop_require_default._ = _interop_require_default._interop_require_default = _interop_require_default$1;
+	function _interop_require_default$1(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+	return _interop_require_default;
+}
+
+var _interop_require_wildcard = {};
+
+var hasRequired_interop_require_wildcard;
+
+function require_interop_require_wildcard () {
+	if (hasRequired_interop_require_wildcard) return _interop_require_wildcard;
+	hasRequired_interop_require_wildcard = 1;
+
+	function _getRequireWildcardCache(nodeInterop) {
+	    if (typeof WeakMap !== "function") return null;
+
+	    var cacheBabelInterop = new WeakMap();
+	    var cacheNodeInterop = new WeakMap();
+
+	    return (_getRequireWildcardCache = function(nodeInterop) {
+	        return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
+	    })(nodeInterop);
+	}
+	_interop_require_wildcard._ = _interop_require_wildcard._interop_require_wildcard = _interop_require_wildcard$1;
+	function _interop_require_wildcard$1(obj, nodeInterop) {
+	    if (!nodeInterop && obj && obj.__esModule) return obj;
+	    if (obj === null || typeof obj !== "object" && typeof obj !== "function") return { default: obj };
+
+	    var cache = _getRequireWildcardCache(nodeInterop);
+
+	    if (cache && cache.has(obj)) return cache.get(obj);
+
+	    var newObj = {};
+	    var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
+
+	    for (var key in obj) {
+	        if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
+	            var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
+	            if (desc && (desc.get || desc.set)) Object.defineProperty(newObj, key, desc);
+	            else newObj[key] = obj[key];
+	        }
+	    }
+
+	    newObj.default = obj;
+
+	    if (cache) cache.set(obj, newObj);
+
+	    return newObj;
+	}
+	return _interop_require_wildcard;
+}
+
+var headManagerContext_sharedRuntime = {};
+
+var hasRequiredHeadManagerContext_sharedRuntime;
+
+function requireHeadManagerContext_sharedRuntime () {
+	if (hasRequiredHeadManagerContext_sharedRuntime) return headManagerContext_sharedRuntime;
+	hasRequiredHeadManagerContext_sharedRuntime = 1;
+	(function (exports) {
+		Object.defineProperty(exports, "__esModule", {
+		    value: true
+		});
+		Object.defineProperty(exports, "HeadManagerContext", {
+		    enumerable: true,
+		    get: function() {
+		        return HeadManagerContext;
+		    }
+		});
+		const _interop_require_default = /*@__PURE__*/ require_interop_require_default();
+		const _react = /*#__PURE__*/ _interop_require_default._(React);
+		const HeadManagerContext = _react.default.createContext({});
+		if (process.env.NODE_ENV !== "production") {
+		    HeadManagerContext.displayName = "HeadManagerContext";
+		}
+
+		
+	} (headManagerContext_sharedRuntime));
+	return headManagerContext_sharedRuntime;
+}
+
+var headManager = {exports: {}};
+
+var hasRequiredHeadManager;
+
+function requireHeadManager () {
+	if (hasRequiredHeadManager) return headManager.exports;
+	hasRequiredHeadManager = 1;
+	(function (module, exports) {
+		Object.defineProperty(exports, "__esModule", {
+		    value: true
+		});
+		function _export(target, all) {
+		    for(var name in all)Object.defineProperty(target, name, {
+		        enumerable: true,
+		        get: all[name]
+		    });
+		}
+		_export(exports, {
+		    DOMAttributeNames: function() {
+		        return DOMAttributeNames;
+		    },
+		    isEqualNode: function() {
+		        return isEqualNode;
+		    },
+		    default: function() {
+		        return initHeadManager;
+		    }
+		});
+		const DOMAttributeNames = {
+		    acceptCharset: "accept-charset",
+		    className: "class",
+		    htmlFor: "for",
+		    httpEquiv: "http-equiv",
+		    noModule: "noModule"
+		};
+		function reactElementToDOM(param) {
+		    let { type, props } = param;
+		    const el = document.createElement(type);
+		    for(const p in props){
+		        if (!props.hasOwnProperty(p)) continue;
+		        if (p === "children" || p === "dangerouslySetInnerHTML") continue;
+		        // we don't render undefined props to the DOM
+		        if (props[p] === undefined) continue;
+		        const attr = DOMAttributeNames[p] || p.toLowerCase();
+		        if (type === "script" && (attr === "async" || attr === "defer" || attr === "noModule")) {
+		            el[attr] = !!props[p];
+		        } else {
+		            el.setAttribute(attr, props[p]);
+		        }
+		    }
+		    const { children, dangerouslySetInnerHTML } = props;
+		    if (dangerouslySetInnerHTML) {
+		        el.innerHTML = dangerouslySetInnerHTML.__html || "";
+		    } else if (children) {
+		        el.textContent = typeof children === "string" ? children : Array.isArray(children) ? children.join("") : "";
+		    }
+		    return el;
+		}
+		function isEqualNode(oldTag, newTag) {
+		    if (oldTag instanceof HTMLElement && newTag instanceof HTMLElement) {
+		        const nonce = newTag.getAttribute("nonce");
+		        // Only strip the nonce if `oldTag` has had it stripped. An element's nonce attribute will not
+		        // be stripped if there is no content security policy response header that includes a nonce.
+		        if (nonce && !oldTag.getAttribute("nonce")) {
+		            const cloneTag = newTag.cloneNode(true);
+		            cloneTag.setAttribute("nonce", "");
+		            cloneTag.nonce = nonce;
+		            return nonce === oldTag.nonce && oldTag.isEqualNode(cloneTag);
+		        }
+		    }
+		    return oldTag.isEqualNode(newTag);
+		}
+		let updateElements;
+		if (process.env.__NEXT_STRICT_NEXT_HEAD) {
+		    updateElements = (type, components)=>{
+		        const headEl = document.querySelector("head");
+		        if (!headEl) return;
+		        const headMetaTags = headEl.querySelectorAll('meta[name="next-head"]') || [];
+		        const oldTags = [];
+		        if (type === "meta") {
+		            const metaCharset = headEl.querySelector("meta[charset]");
+		            if (metaCharset) {
+		                oldTags.push(metaCharset);
+		            }
+		        }
+		        for(let i = 0; i < headMetaTags.length; i++){
+		            var _headTag_tagName;
+		            const metaTag = headMetaTags[i];
+		            const headTag = metaTag.nextSibling;
+		            if ((headTag == null ? undefined : (_headTag_tagName = headTag.tagName) == null ? undefined : _headTag_tagName.toLowerCase()) === type) {
+		                oldTags.push(headTag);
+		            }
+		        }
+		        const newTags = components.map(reactElementToDOM).filter((newTag)=>{
+		            for(let k = 0, len = oldTags.length; k < len; k++){
+		                const oldTag = oldTags[k];
+		                if (isEqualNode(oldTag, newTag)) {
+		                    oldTags.splice(k, 1);
+		                    return false;
+		                }
+		            }
+		            return true;
+		        });
+		        oldTags.forEach((t)=>{
+		            var _t_parentNode;
+		            const metaTag = t.previousSibling;
+		            if (metaTag && metaTag.getAttribute("name") === "next-head") {
+		                var _t_parentNode1;
+		                (_t_parentNode1 = t.parentNode) == null ? undefined : _t_parentNode1.removeChild(metaTag);
+		            }
+		            (_t_parentNode = t.parentNode) == null ? undefined : _t_parentNode.removeChild(t);
+		        });
+		        newTags.forEach((t)=>{
+		            var _t_tagName;
+		            const meta = document.createElement("meta");
+		            meta.name = "next-head";
+		            meta.content = "1";
+		            // meta[charset] must be first element so special case
+		            if (!(((_t_tagName = t.tagName) == null ? undefined : _t_tagName.toLowerCase()) === "meta" && t.getAttribute("charset"))) {
+		                headEl.appendChild(meta);
+		            }
+		            headEl.appendChild(t);
+		        });
+		    };
+		} else {
+		    updateElements = (type, components)=>{
+		        const headEl = document.getElementsByTagName("head")[0];
+		        const headCountEl = headEl.querySelector("meta[name=next-head-count]");
+		        if (process.env.NODE_ENV !== "production") {
+		            if (!headCountEl) {
+		                console.error("Warning: next-head-count is missing. https://nextjs.org/docs/messages/next-head-count-missing");
+		                return;
+		            }
+		        }
+		        const headCount = Number(headCountEl.content);
+		        const oldTags = [];
+		        for(let i = 0, j = headCountEl.previousElementSibling; i < headCount; i++, j = (j == null ? undefined : j.previousElementSibling) || null){
+		            var _j_tagName;
+		            if ((j == null ? undefined : (_j_tagName = j.tagName) == null ? undefined : _j_tagName.toLowerCase()) === type) {
+		                oldTags.push(j);
+		            }
+		        }
+		        const newTags = components.map(reactElementToDOM).filter((newTag)=>{
+		            for(let k = 0, len = oldTags.length; k < len; k++){
+		                const oldTag = oldTags[k];
+		                if (isEqualNode(oldTag, newTag)) {
+		                    oldTags.splice(k, 1);
+		                    return false;
+		                }
+		            }
+		            return true;
+		        });
+		        oldTags.forEach((t)=>{
+		            var _t_parentNode;
+		            return (_t_parentNode = t.parentNode) == null ? undefined : _t_parentNode.removeChild(t);
+		        });
+		        newTags.forEach((t)=>headEl.insertBefore(t, headCountEl));
+		        headCountEl.content = (headCount - oldTags.length + newTags.length).toString();
+		    };
+		}
+		function initHeadManager() {
+		    return {
+		        mountedInstances: new Set(),
+		        updateHead: (head)=>{
+		            const tags = {};
+		            head.forEach((h)=>{
+		                if (// If the font tag is loaded only on client navigation
+		                // it won't be inlined. In this case revert to the original behavior
+		                h.type === "link" && h.props["data-optimized-fonts"]) {
+		                    if (document.querySelector('style[data-href="' + h.props["data-href"] + '"]')) {
+		                        return;
+		                    } else {
+		                        h.props.href = h.props["data-href"];
+		                        h.props["data-href"] = undefined;
+		                    }
+		                }
+		                const components = tags[h.type] || [];
+		                components.push(h);
+		                tags[h.type] = components;
+		            });
+		            const titleComponent = tags.title ? tags.title[0] : null;
+		            let title = "";
+		            if (titleComponent) {
+		                const { children } = titleComponent.props;
+		                title = typeof children === "string" ? children : Array.isArray(children) ? children.join("") : "";
+		            }
+		            if (title !== document.title) document.title = title;
+		            [
+		                "meta",
+		                "base",
+		                "link",
+		                "style",
+		                "script"
+		            ].forEach((type)=>{
+		                updateElements(type, tags[type] || []);
+		            });
+		        }
+		    };
+		}
+
+		if ((typeof exports.default === 'function' || (typeof exports.default === 'object' && exports.default !== null)) && typeof exports.default.__esModule === 'undefined') {
+		  Object.defineProperty(exports.default, '__esModule', { value: true });
+		  Object.assign(exports.default, exports);
+		  module.exports = exports.default;
+		}
+
+		
+	} (headManager, headManager.exports));
+	return headManager.exports;
+}
+
+var requestIdleCallback = {exports: {}};
+
+var hasRequiredRequestIdleCallback;
+
+function requireRequestIdleCallback () {
+	if (hasRequiredRequestIdleCallback) return requestIdleCallback.exports;
+	hasRequiredRequestIdleCallback = 1;
+	(function (module, exports) {
+		Object.defineProperty(exports, "__esModule", {
+		    value: true
+		});
+		function _export(target, all) {
+		    for(var name in all)Object.defineProperty(target, name, {
+		        enumerable: true,
+		        get: all[name]
+		    });
+		}
+		_export(exports, {
+		    requestIdleCallback: function() {
+		        return requestIdleCallback;
+		    },
+		    cancelIdleCallback: function() {
+		        return cancelIdleCallback;
+		    }
+		});
+		const requestIdleCallback = typeof self !== "undefined" && self.requestIdleCallback && self.requestIdleCallback.bind(window) || function(cb) {
+		    let start = Date.now();
+		    return self.setTimeout(function() {
+		        cb({
+		            didTimeout: false,
+		            timeRemaining: function() {
+		                return Math.max(0, 50 - (Date.now() - start));
+		            }
+		        });
+		    }, 1);
+		};
+		const cancelIdleCallback = typeof self !== "undefined" && self.cancelIdleCallback && self.cancelIdleCallback.bind(window) || function(id) {
+		    return clearTimeout(id);
+		};
+
+		if ((typeof exports.default === 'function' || (typeof exports.default === 'object' && exports.default !== null)) && typeof exports.default.__esModule === 'undefined') {
+		  Object.defineProperty(exports.default, '__esModule', { value: true });
+		  Object.assign(exports.default, exports);
+		  module.exports = exports.default;
+		}
+
+		
+	} (requestIdleCallback, requestIdleCallback.exports));
+	return requestIdleCallback.exports;
+}
+
+var hasRequiredScript$1;
+
+function requireScript$1 () {
+	if (hasRequiredScript$1) return script$1.exports;
+	hasRequiredScript$1 = 1;
+	(function (module, exports) {
+		"use client";
+		Object.defineProperty(exports, "__esModule", {
+		    value: true
+		});
+		function _export(target, all) {
+		    for(var name in all)Object.defineProperty(target, name, {
+		        enumerable: true,
+		        get: all[name]
+		    });
+		}
+		_export(exports, {
+		    handleClientScriptLoad: function() {
+		        return handleClientScriptLoad;
+		    },
+		    initScriptLoader: function() {
+		        return initScriptLoader;
+		    },
+		    default: function() {
+		        return _default;
+		    }
+		});
+		const _interop_require_default = /*@__PURE__*/ require_interop_require_default();
+		const _interop_require_wildcard = /*@__PURE__*/ require_interop_require_wildcard();
+		const _reactdom = /*#__PURE__*/ _interop_require_default._(require$$2);
+		const _react = /*#__PURE__*/ _interop_require_wildcard._(React);
+		const _headmanagercontextsharedruntime = requireHeadManagerContext_sharedRuntime();
+		const _headmanager = requireHeadManager();
+		const _requestidlecallback = requireRequestIdleCallback();
+		const ScriptCache = new Map();
+		const LoadCache = new Set();
+		const ignoreProps = [
+		    "onLoad",
+		    "onReady",
+		    "dangerouslySetInnerHTML",
+		    "children",
+		    "onError",
+		    "strategy",
+		    "stylesheets"
+		];
+		const insertStylesheets = (stylesheets)=>{
+		    // Case 1: Styles for afterInteractive/lazyOnload with appDir injected via handleClientScriptLoad
+		    //
+		    // Using ReactDOM.preinit to feature detect appDir and inject styles
+		    // Stylesheets might have already been loaded if initialized with Script component
+		    // Re-inject styles here to handle scripts loaded via handleClientScriptLoad
+		    // ReactDOM.preinit handles dedup and ensures the styles are loaded only once
+		    if (_reactdom.default.preinit) {
+		        stylesheets.forEach((stylesheet)=>{
+		            _reactdom.default.preinit(stylesheet, {
+		                as: "style"
+		            });
+		        });
+		        return;
+		    }
+		    // Case 2: Styles for afterInteractive/lazyOnload with pages injected via handleClientScriptLoad
+		    //
+		    // We use this function to load styles when appdir is not detected
+		    // TODO: Use React float APIs to load styles once available for pages dir
+		    if (typeof window !== "undefined") {
+		        let head = document.head;
+		        stylesheets.forEach((stylesheet)=>{
+		            let link = document.createElement("link");
+		            link.type = "text/css";
+		            link.rel = "stylesheet";
+		            link.href = stylesheet;
+		            head.appendChild(link);
+		        });
+		    }
+		};
+		const loadScript = (props)=>{
+		    const { src, id, onLoad = ()=>{}, onReady = null, dangerouslySetInnerHTML, children = "", strategy = "afterInteractive", onError, stylesheets } = props;
+		    const cacheKey = id || src;
+		    // Script has already loaded
+		    if (cacheKey && LoadCache.has(cacheKey)) {
+		        return;
+		    }
+		    // Contents of this script are already loading/loaded
+		    if (ScriptCache.has(src)) {
+		        LoadCache.add(cacheKey);
+		        // It is possible that multiple `next/script` components all have same "src", but has different "onLoad"
+		        // This is to make sure the same remote script will only load once, but "onLoad" are executed in order
+		        ScriptCache.get(src).then(onLoad, onError);
+		        return;
+		    }
+		    /** Execute after the script first loaded */ const afterLoad = ()=>{
+		        // Run onReady for the first time after load event
+		        if (onReady) {
+		            onReady();
+		        }
+		        // add cacheKey to LoadCache when load successfully
+		        LoadCache.add(cacheKey);
+		    };
+		    const el = document.createElement("script");
+		    const loadPromise = new Promise((resolve, reject)=>{
+		        el.addEventListener("load", function(e) {
+		            resolve();
+		            if (onLoad) {
+		                onLoad.call(this, e);
+		            }
+		            afterLoad();
+		        });
+		        el.addEventListener("error", function(e) {
+		            reject(e);
+		        });
+		    }).catch(function(e) {
+		        if (onError) {
+		            onError(e);
+		        }
+		    });
+		    if (dangerouslySetInnerHTML) {
+		        // Casting since lib.dom.d.ts doesn't have TrustedHTML yet.
+		        el.innerHTML = dangerouslySetInnerHTML.__html || "";
+		        afterLoad();
+		    } else if (children) {
+		        el.textContent = typeof children === "string" ? children : Array.isArray(children) ? children.join("") : "";
+		        afterLoad();
+		    } else if (src) {
+		        el.src = src;
+		        // do not add cacheKey into LoadCache for remote script here
+		        // cacheKey will be added to LoadCache when it is actually loaded (see loadPromise above)
+		        ScriptCache.set(src, loadPromise);
+		    }
+		    for (const [k, value] of Object.entries(props)){
+		        if (value === undefined || ignoreProps.includes(k)) {
+		            continue;
+		        }
+		        const attr = _headmanager.DOMAttributeNames[k] || k.toLowerCase();
+		        el.setAttribute(attr, value);
+		    }
+		    if (strategy === "worker") {
+		        el.setAttribute("type", "text/partytown");
+		    }
+		    el.setAttribute("data-nscript", strategy);
+		    // Load styles associated with this script
+		    if (stylesheets) {
+		        insertStylesheets(stylesheets);
+		    }
+		    document.body.appendChild(el);
+		};
+		function handleClientScriptLoad(props) {
+		    const { strategy = "afterInteractive" } = props;
+		    if (strategy === "lazyOnload") {
+		        window.addEventListener("load", ()=>{
+		            (0, _requestidlecallback.requestIdleCallback)(()=>loadScript(props));
+		        });
+		    } else {
+		        loadScript(props);
+		    }
+		}
+		function loadLazyScript(props) {
+		    if (document.readyState === "complete") {
+		        (0, _requestidlecallback.requestIdleCallback)(()=>loadScript(props));
+		    } else {
+		        window.addEventListener("load", ()=>{
+		            (0, _requestidlecallback.requestIdleCallback)(()=>loadScript(props));
+		        });
+		    }
+		}
+		function addBeforeInteractiveToCache() {
+		    const scripts = [
+		        ...document.querySelectorAll('[data-nscript="beforeInteractive"]'),
+		        ...document.querySelectorAll('[data-nscript="beforePageRender"]')
+		    ];
+		    scripts.forEach((script)=>{
+		        const cacheKey = script.id || script.getAttribute("src");
+		        LoadCache.add(cacheKey);
+		    });
+		}
+		function initScriptLoader(scriptLoaderItems) {
+		    scriptLoaderItems.forEach(handleClientScriptLoad);
+		    addBeforeInteractiveToCache();
+		}
+		function Script(props) {
+		    const { id, src = "", onLoad = ()=>{}, onReady = null, strategy = "afterInteractive", onError, stylesheets, ...restProps } = props;
+		    // Context is available only during SSR
+		    const { updateScripts, scripts, getIsSsr, appDir, nonce } = (0, _react.useContext)(_headmanagercontextsharedruntime.HeadManagerContext);
+		    /**
+		   * - First mount:
+		   *   1. The useEffect for onReady executes
+		   *   2. hasOnReadyEffectCalled.current is false, but the script hasn't loaded yet (not in LoadCache)
+		   *      onReady is skipped, set hasOnReadyEffectCalled.current to true
+		   *   3. The useEffect for loadScript executes
+		   *   4. hasLoadScriptEffectCalled.current is false, loadScript executes
+		   *      Once the script is loaded, the onLoad and onReady will be called by then
+		   *   [If strict mode is enabled / is wrapped in <OffScreen /> component]
+		   *   5. The useEffect for onReady executes again
+		   *   6. hasOnReadyEffectCalled.current is true, so entire effect is skipped
+		   *   7. The useEffect for loadScript executes again
+		   *   8. hasLoadScriptEffectCalled.current is true, so entire effect is skipped
+		   *
+		   * - Second mount:
+		   *   1. The useEffect for onReady executes
+		   *   2. hasOnReadyEffectCalled.current is false, but the script has already loaded (found in LoadCache)
+		   *      onReady is called, set hasOnReadyEffectCalled.current to true
+		   *   3. The useEffect for loadScript executes
+		   *   4. The script is already loaded, loadScript bails out
+		   *   [If strict mode is enabled / is wrapped in <OffScreen /> component]
+		   *   5. The useEffect for onReady executes again
+		   *   6. hasOnReadyEffectCalled.current is true, so entire effect is skipped
+		   *   7. The useEffect for loadScript executes again
+		   *   8. hasLoadScriptEffectCalled.current is true, so entire effect is skipped
+		   */ const hasOnReadyEffectCalled = (0, _react.useRef)(false);
+		    (0, _react.useEffect)(()=>{
+		        const cacheKey = id || src;
+		        if (!hasOnReadyEffectCalled.current) {
+		            // Run onReady if script has loaded before but component is re-mounted
+		            if (onReady && cacheKey && LoadCache.has(cacheKey)) {
+		                onReady();
+		            }
+		            hasOnReadyEffectCalled.current = true;
+		        }
+		    }, [
+		        onReady,
+		        id,
+		        src
+		    ]);
+		    const hasLoadScriptEffectCalled = (0, _react.useRef)(false);
+		    (0, _react.useEffect)(()=>{
+		        if (!hasLoadScriptEffectCalled.current) {
+		            if (strategy === "afterInteractive") {
+		                loadScript(props);
+		            } else if (strategy === "lazyOnload") {
+		                loadLazyScript(props);
+		            }
+		            hasLoadScriptEffectCalled.current = true;
+		        }
+		    }, [
+		        props,
+		        strategy
+		    ]);
+		    if (strategy === "beforeInteractive" || strategy === "worker") {
+		        if (updateScripts) {
+		            scripts[strategy] = (scripts[strategy] || []).concat([
+		                {
+		                    id,
+		                    src,
+		                    onLoad,
+		                    onReady,
+		                    onError,
+		                    ...restProps
+		                }
+		            ]);
+		            updateScripts(scripts);
+		        } else if (getIsSsr && getIsSsr()) {
+		            // Script has already loaded during SSR
+		            LoadCache.add(id || src);
+		        } else if (getIsSsr && !getIsSsr()) {
+		            loadScript(props);
+		        }
+		    }
+		    // For the app directory, we need React Float to preload these scripts.
+		    if (appDir) {
+		        // Injecting stylesheets here handles beforeInteractive and worker scripts correctly
+		        // For other strategies injecting here ensures correct stylesheet order
+		        // ReactDOM.preinit handles loading the styles in the correct order,
+		        // also ensures the stylesheet is loaded only once and in a consistent manner
+		        //
+		        // Case 1: Styles for beforeInteractive/worker with appDir - handled here
+		        // Case 2: Styles for beforeInteractive/worker with pages dir - Not handled yet
+		        // Case 3: Styles for afterInteractive/lazyOnload with appDir - handled here
+		        // Case 4: Styles for afterInteractive/lazyOnload with pages dir - handled in insertStylesheets function
+		        if (stylesheets) {
+		            stylesheets.forEach((styleSrc)=>{
+		                _reactdom.default.preinit(styleSrc, {
+		                    as: "style"
+		                });
+		            });
+		        }
+		        // Before interactive scripts need to be loaded by Next.js' runtime instead
+		        // of native <script> tags, because they no longer have `defer`.
+		        if (strategy === "beforeInteractive") {
+		            if (!src) {
+		                // For inlined scripts, we put the content in `children`.
+		                if (restProps.dangerouslySetInnerHTML) {
+		                    // Casting since lib.dom.d.ts doesn't have TrustedHTML yet.
+		                    restProps.children = restProps.dangerouslySetInnerHTML.__html;
+		                    delete restProps.dangerouslySetInnerHTML;
+		                }
+		                return /*#__PURE__*/ _react.default.createElement("script", {
+		                    nonce: nonce,
+		                    dangerouslySetInnerHTML: {
+		                        __html: "(self.__next_s=self.__next_s||[]).push(" + JSON.stringify([
+		                            0,
+		                            {
+		                                ...restProps
+		                            }
+		                        ]) + ")"
+		                    }
+		                });
+		            } else {
+		                // @ts-ignore
+		                _reactdom.default.preload(src, restProps.integrity ? {
+		                    as: "script",
+		                    integrity: restProps.integrity
+		                } : {
+		                    as: "script"
+		                });
+		                return /*#__PURE__*/ _react.default.createElement("script", {
+		                    nonce: nonce,
+		                    dangerouslySetInnerHTML: {
+		                        __html: "(self.__next_s=self.__next_s||[]).push(" + JSON.stringify([
+		                            src
+		                        ]) + ")"
+		                    }
+		                });
+		            }
+		        } else if (strategy === "afterInteractive") {
+		            if (src) {
+		                // @ts-ignore
+		                _reactdom.default.preload(src, restProps.integrity ? {
+		                    as: "script",
+		                    integrity: restProps.integrity
+		                } : {
+		                    as: "script"
+		                });
+		            }
+		        }
+		    }
+		    return null;
+		}
+		Object.defineProperty(Script, "__nextScript", {
+		    value: true
+		});
+		const _default = Script;
+
+		if ((typeof exports.default === 'function' || (typeof exports.default === 'object' && exports.default !== null)) && typeof exports.default.__esModule === 'undefined') {
+		  Object.defineProperty(exports.default, '__esModule', { value: true });
+		  Object.assign(exports.default, exports);
+		  module.exports = exports.default;
+		}
+
+		
+	} (script$1, script$1.exports));
+	return script$1.exports;
+}
+
+var script;
+var hasRequiredScript;
+
+function requireScript () {
+	if (hasRequiredScript) return script;
+	hasRequiredScript = 1;
+	script = requireScript$1();
+	return script;
+}
+
+var scriptExports = requireScript();
+var Script = /*@__PURE__*/getDefaultExportFromCjs(scriptExports);
+
+const RazorpayPayment = () => {
+    const handlePayment = async () => {
+        try {
+            // User details (you can replace these with dynamic values as needed)
+            const userDetails = {
+                name: 'John Doe',
+                email: 'john.doe@example.com',
+                contact: '1234567890',
+            };
+            // API call to create an order
+            const response = await fetch('http://localhost:5000/order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    amount: 5000,
+                    itemName: 'Premium Membership',
+                    userDetails,
+                }),
+            });
+            const { razorpayOptions } = await response.json();
+            // Attach the payment handler to the Razorpay options
+            razorpayOptions.handler = function (paymentResponse) {
+                alert(`Payment Successful! Payment ID: ${paymentResponse.razorpay_payment_id}`);
+                console.log('Payment Details:', paymentResponse);
+                // You can also make a POST request to your backend to log payment success.
+            };
+            // Initialize Razorpay instance
+            const razorpayInstance = new window.Razorpay(razorpayOptions);
+            // Open the Razorpay payment modal
+            razorpayInstance.open();
+        }
+        catch (error) {
+            console.error('Error creating Razorpay order:', error);
+            alert('Something went wrong. Please try again.');
+        }
+    };
+    return (React.createElement(React.Fragment, null,
+        React.createElement(Script, { src: "https://checkout.razorpay.com/v1/checkout.js", strategy: "beforeInteractive" }),
+        React.createElement("button", { onClick: handlePayment, style: {
+                padding: '10px 20px',
+                fontSize: '16px',
+                backgroundColor: '#007bff',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+            } }, "Pay Now")));
+};
+
+export { Button, Card, ListView$1 as ListView, ListView as ListViewDynamic, RazorpayPayment as PaymentForm, WeatherWidget };
