@@ -18,6 +18,9 @@
         "typescript": "^5.7.2"
     },
     "dependencies": {
-        "graceful-fs": "^4.2.11"
+        "date-fns": "^4.1.0",
+        "graceful-fs": "^4.2.11",
+        "lucide-react-native": "^0.471.0",
+        "react-native-chart-kit": "^6.12.0"
     }
 }
