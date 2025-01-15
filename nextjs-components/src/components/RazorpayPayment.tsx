@@ -1,7 +1,7 @@
 import Script from 'next/script';
 import React from 'react';
 
-const RazorpayPayment = () => {
+const RazorpayPayment: React.FC = () => {
   const handlePayment = async () => {
     try {
       // Ensure the script is loaded

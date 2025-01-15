@@ -42,7 +42,7 @@ const COLORS = {
   notPlaced: "#d0021b",
 };
 
-export default function StudentCareerChart() {
+const StudentCareerChart: React.FC = () => {
   const [currentDay, setCurrentDay] = useState(1);
 
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,3 +87,5 @@ export default function StudentCareerChart() {
     </div>
   );
 }
+
+export default StudentCareerChart;
