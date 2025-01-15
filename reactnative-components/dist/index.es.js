@@ -672,9 +672,8 @@ function DietPlanComponent({ mealPlans, }) {
         React.createElement(View, { style: styles.foodDetails },
             React.createElement(Text, { style: styles.foodName }, item.name),
             item.imageUrl && (React.createElement(Image, { source: { uri: item.imageUrl }, style: styles.foodImage, resizeMode: "cover" })),
-            React.createElement(Text, { style: styles.textureLabel },
-                "Texture: ",
-                item.texture),
+            React.createElement(View, { style: styles.badge },
+                React.createElement(Text, { style: styles.badgeText }, item.texture)),
             React.createElement(View, { style: styles.sensoryInfo },
                 React.createElement(Text, { style: styles.sectionTitle }, "Sensory Considerations:"),
                 item.sensoryConsiderations?.map((consideration, index) => (React.createElement(Text, { key: index, style: styles.sensoryText },
@@ -709,13 +708,25 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 12,
         marginBottom: 10,
-        backgroundColor: '#e6ccff',
+        backgroundColor: 'white',
     },
     foodImage: {
         width: 80,
         height: 80,
         borderRadius: 8,
         marginVertical: 10
+    },
+    badge: {
+        backgroundColor: '#007bff', // Blue background
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        borderRadius: 15, // Rounded corners
+        alignSelf: 'flex-start', // Wrap content width
+    },
+    badgeText: {
+        color: '#fff', // White text
+        fontSize: 14,
+        fontWeight: '600', // Semi-bold text
     },
     foodDetails: {
         flex: 1,
