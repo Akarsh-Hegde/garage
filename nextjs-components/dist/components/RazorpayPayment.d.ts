@@ -1,3 +1,3 @@
 import React from 'react';
-declare const RazorpayPayment: () => React.JSX.Element;
+declare const RazorpayPayment: React.FC;
 export default RazorpayPayment;
