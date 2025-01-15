@@ -60,9 +60,9 @@ export default function DietPlanComponent({
             />
         )}
         
-        <Text style={styles.textureLabel}>
-          Texture: {item.texture}
-        </Text>
+        <View style={styles.badge}>
+          <Text style={styles.badgeText}>{item.texture}</Text>
+        </View>
 
         <View style={styles.sensoryInfo}>
           <Text style={styles.sectionTitle}>
@@ -124,13 +124,25 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 12,
     marginBottom: 10,
-    backgroundColor: '#e6ccff',
+    backgroundColor: 'white',
   },
   foodImage: {
     width: 80,
     height: 80,
     borderRadius: 8,
     marginVertical:10
+  },
+  badge: {
+    backgroundColor: '#007bff', // Blue background
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 15, // Rounded corners
+    alignSelf: 'flex-start', // Wrap content width
+  },
+  badgeText: {
+    color: '#fff', // White text
+    fontSize: 14,
+    fontWeight: '600', // Semi-bold text
   },
   foodDetails: {
     flex: 1,
