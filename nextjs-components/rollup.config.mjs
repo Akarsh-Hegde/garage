@@ -13,6 +13,11 @@ export default {
       file: 'dist/index.esm.js',
       format: 'esm',
     },
+    {
+      file: 'dist/index.cjs.js', // optional CommonJS output
+      format: 'cjs',
+      sourcemap: true,
+    }
   ],
   plugins: [resolve(), commonjs(), typescript()],
   external: ['react', 'react-dom'], // Mark peer dependencies as external
