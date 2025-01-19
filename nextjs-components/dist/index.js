@@ -33498,7 +33498,6 @@ function useEscapeKeydown(onEscapeKeyDownProp, ownerDocument = globalThis?.docum
   }, [onEscapeKeyDown, ownerDocument]);
 }
 
-// packages/react/dismissable-layer/src/DismissableLayer.tsx
 var DISMISSABLE_LAYER_NAME = "DismissableLayer";
 var CONTEXT_UPDATE = "dismissableLayer.update";
 var POINTER_DOWN_OUTSIDE = "dismissableLayer.pointerDownOutside";
@@ -33701,7 +33700,6 @@ function handleAndDispatchCustomEvent(name, handler, detail, { discrete }) {
   }
 }
 
-// packages/react/focus-scope/src/FocusScope.tsx
 var AUTOFOCUS_ON_MOUNT = "focusScope.autoFocusOnMount";
 var AUTOFOCUS_ON_UNMOUNT = "focusScope.autoFocusOnUnmount";
 var EVENT_OPTIONS = { bubbles: false, cancelable: true };
@@ -33902,7 +33900,6 @@ function removeLinks(items) {
   return items.filter((item) => item.tagName !== "A");
 }
 
-// packages/react/portal/src/Portal.tsx
 var PORTAL_NAME$2 = "Portal";
 var Portal$2 = React__namespace.forwardRef((props, forwardedRef) => {
   const { container: containerProp, ...portalProps } = props;
@@ -33913,7 +33910,6 @@ var Portal$2 = React__namespace.forwardRef((props, forwardedRef) => {
 });
 Portal$2.displayName = PORTAL_NAME$2;
 
-// packages/react/presence/src/Presence.tsx
 function useStateMachine(initialState, machine) {
   return React__namespace.useReducer((state, event) => {
     const nextState = machine[state][event];
@@ -34039,7 +34035,6 @@ function getElementRef(element) {
   return element.props.ref || element.ref;
 }
 
-// packages/react/focus-guards/src/FocusGuards.tsx
 var count = 0;
 function useFocusGuards() {
   React__namespace.useEffect(() => {
@@ -34951,7 +34946,6 @@ var hideOthers = function (originalTarget, parentNode, markerName) {
     return applyAttributeToOthers(targets, activeParentNode, markerName, 'aria-hidden');
 };
 
-// packages/react/dialog/src/Dialog.tsx
 var DIALOG_NAME = "Dialog";
 var [createDialogContext, createDialogScope] = createContextScope(DIALOG_NAME);
 var [DialogProvider, useDialogContext] = createDialogContext(DIALOG_NAME);
@@ -35284,7 +35278,6 @@ CardContent.displayName = "CardContent";
 const CardFooter = React__namespace.forwardRef(({ className, ...props }, ref) => (React__namespace.createElement("div", { ref: ref, className: cn("flex items-center p-6 pt-0", className), ...props })));
 CardFooter.displayName = "CardFooter";
 
-// packages/react/avatar/src/Avatar.tsx
 var AVATAR_NAME = "Avatar";
 var [createAvatarContext, createAvatarScope] = createContextScope(AVATAR_NAME);
 var [AvatarProvider, useAvatarContext] = createAvatarContext(AVATAR_NAME);
@@ -37713,7 +37706,6 @@ function useSize(element) {
   return size;
 }
 
-// packages/react/popper/src/Popper.tsx
 var POPPER_NAME = "Popper";
 var [createPopperContext, createPopperScope] = createContextScope(POPPER_NAME);
 var [PopperProvider, usePopperContext] = createPopperContext(POPPER_NAME);
@@ -38009,7 +38001,6 @@ var VisuallyHidden = React__namespace.forwardRef(
 VisuallyHidden.displayName = NAME;
 var Root = VisuallyHidden;
 
-// packages/react/tooltip/src/Tooltip.tsx
 var [createTooltipContext, createTooltipScope] = createContextScope("Tooltip", [
   createPopperScope
 ]);
