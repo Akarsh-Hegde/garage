@@ -20,5 +20,5 @@ export default {
     }
   ],
   plugins: [resolve(), commonjs(), typescript()],
-  external: ['react', 'react-dom'], // Mark peer dependencies as external
+  external: ['react', 'react-dom', 'next'], // Mark peer dependencies as external
 };
