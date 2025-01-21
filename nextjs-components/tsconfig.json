@@ -13,7 +13,8 @@
       "baseUrl": ".",
       "typeRoots": ["./@types", "./node_modules/@types"], 
       "paths": {
-        "component-package/nextjs-components": ["node_modules/component-package/nextjs-components/dist"]
+        "component-package/nextjs-components": ["node_modules/component-package/nextjs-components/dist"],
+        "@/*": ["./*"]
       }
     },
     "include": ["src/**/*"],
