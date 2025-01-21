@@ -6,3 +6,4 @@ export { default as ListViewDynamic } from './components/ListViewDynamic';
 export { default as RazorpayPayment } from './components/RazorpayPayment';
 export { default as StudentCareerChart } from './components/StudentCareerChart';
 export { default as StudentCareList } from './components/StudentCareList';
+export { default as ChatInterface } from './components/ChatInterface';

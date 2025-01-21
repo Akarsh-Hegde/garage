@@ -31,6 +31,7 @@
     "@rollup/plugin-typescript": "^12.1.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "forgood-sdk": "github:4dg-ai/4Good-UI-Stream-sdk",
     "lucide-react": "^0.473.0",
     "react-icons": "^5.4.0",
     "recharts": "^2.15.0",
