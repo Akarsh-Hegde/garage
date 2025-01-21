@@ -1,6 +1,6 @@
 import { Plus, MessageSquare, Menu } from "lucide-react"
 import { Button } from "../components/ui/button"
-import { theme } from "../styles/theme"
+import defaultTheme from "../styles/theme"
 import React from "react"
 
 interface SidebarProps {
@@ -18,13 +18,13 @@ export function Sidebar({ isOpen, setIsOpen, onNewChat, chatHistory, currentChat
       className={`sidebar h-screen flex flex-col p-2 text-white transition-all duration-300 ${
         isOpen ? "w-64" : "w-16"
       }`}
-      style={{ backgroundColor: theme.colors.secondary }}
+      style={{ backgroundColor: defaultTheme.colors.secondary }}
     >
       <Button
         variant="ghost"
         className="mb-4 flex items-center justify-center gap-2"
         onClick={onNewChat}
-        style={{ color: theme.colors.text }}
+        style={{ color: defaultTheme.colors.text }}
       >
         <Plus className="h-5 w-5" />
         {isOpen && <span>New chat</span>}
@@ -49,7 +49,7 @@ export function Sidebar({ isOpen, setIsOpen, onNewChat, chatHistory, currentChat
         variant="ghost"
         className="mt-auto flex items-center justify-center"
         onClick={() => setIsOpen(!isOpen)}
-        style={{ color: theme.colors.text }}
+        style={{ color: defaultTheme.colors.text }}
       >
         <Menu className="h-5 w-5" />
         {isOpen && <span className="ml-2">Close sidebar</span>}

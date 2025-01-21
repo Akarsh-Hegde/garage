@@ -40616,7 +40616,7 @@ function requireImage () {
 var imageExports = requireImage();
 var Image = /*@__PURE__*/getDefaultExportFromCjs(imageExports);
 
-const ChatInterface = () => {
+const ChatInterface = ({ theme: theme$1 = theme }) => {
     const [input, setInput] = React.useState("");
     const [isSidebarOpen, setIsSidebarOpen] = React.useState(true);
     const [chats, setChats] = React.useState([]);
@@ -40692,44 +40692,44 @@ const ChatInterface = () => {
         { icon: FaListAlt, text: "Make a plan", color: "text-yellow-500" },
         { icon: FaFileAlt, text: "Summarize text", color: "text-orange-500" },
     ];
-    return (React.createElement("div", { className: "flex h-screen", style: { backgroundColor: theme.colors.background } },
+    return (React.createElement("div", { className: "flex h-screen", style: { backgroundColor: theme$1.colors.background } },
         React.createElement(Sidebar, { isOpen: isSidebarOpen, setIsOpen: setIsSidebarOpen, onNewChat: createNewChat, chatHistory: chats, currentChatId: currentChatId, onSelectChat: setCurrentChatId }),
         React.createElement("div", { className: "flex flex-col flex-1" },
             React.createElement(Header, { isSidebarOpen: isSidebarOpen, setIsSidebarOpen: setIsSidebarOpen }),
             React.createElement("div", { className: "flex-1 overflow-hidden flex flex-col" },
                 React.createElement("div", { className: "flex-grow overflow-y-auto px-4 py-2" }, currentChat && currentChat.messages.length > 0 ? (currentChat.messages.map((message, index) => (React.createElement("div", { key: index, className: `mb-4 ${message.role === "user" ? "text-right" : "text-left"}` },
                     React.createElement("div", { className: `inline-block p-3 rounded-lg ${message.role === "user"
-                            ? `bg-${theme.colors.userMessage} text-${theme.colors.text}`
-                            : `bg-${theme.colors.botMessage} text-${theme.colors.text}`}`, style: { maxWidth: "70%" } },
+                            ? `bg-${theme$1.colors.userMessage} text-${theme$1.colors.text}`
+                            : `bg-${theme$1.colors.botMessage} text-${theme$1.colors.text}`}`, style: { maxWidth: "70%" } },
                         message.role === "assistant" && (React.createElement("div", { className: "flex items-center mb-2" },
-                            React.createElement(Image, { src: theme.chatbotImage, alt: "Chatbot", width: 24, height: 24, className: "rounded-full mr-2" }),
+                            React.createElement(Image, { src: theme$1.chatbotImage || "/placeholder.svg", alt: "Chatbot", width: 24, height: 24, className: "rounded-full mr-2" }),
                             React.createElement("span", { className: "font-semibold" }, "AI Assistant"))),
                         message.content))))) : (React.createElement("div", { className: "flex-grow flex flex-col items-center justify-center" },
-                    React.createElement("h1", { className: "text-2xl font-semibold mb-8", style: { color: theme.colors.text } }, "What can I help with?"),
+                    React.createElement("h1", { className: "text-2xl font-semibold mb-8", style: { color: theme$1.colors.text } }, "What can I help with?"),
                     React.createElement("div", { className: "flex justify-center gap-2 flex-wrap" },
                         quickActions.map((action, index) => (React.createElement(Button, { key: index, variant: "outline", className: "flex items-center gap-2", onClick: () => {
                                 if (!currentChatId)
                                     createNewChat();
                                 setInput(action.text);
-                            }, style: { backgroundColor: theme.colors.primary, color: theme.colors.text } },
+                            }, style: { backgroundColor: theme$1.colors.primary, color: theme$1.colors.text } },
                             React.createElement(action.icon, { className: `${action.color}` }),
                             React.createElement("span", { className: "text-sm" }, action.text)))),
-                        React.createElement(Button, { variant: "outline", className: "flex items-center gap-2", style: { backgroundColor: theme.colors.primary, color: theme.colors.text } },
+                        React.createElement(Button, { variant: "outline", className: "flex items-center gap-2", style: { backgroundColor: theme$1.colors.primary, color: theme$1.colors.text } },
                             React.createElement("span", { className: "text-sm" }, "More")))))),
                 React.createElement("div", { className: "w-full max-w-4xl mx-auto p-4" },
-                    React.createElement("div", { className: "chat-input flex items-center gap-3 px-4 py-3 rounded-xl", style: { backgroundColor: theme.colors.primary } },
+                    React.createElement("div", { className: "chat-input flex items-center gap-3 px-4 py-3 rounded-xl", style: { backgroundColor: theme$1.colors.primary } },
                         React.createElement(Button, { variant: "ghost", size: "icon", onClick: handleAttachment },
-                            React.createElement(Paperclip, { className: "h-5 w-5", style: { color: theme.colors.text } })),
+                            React.createElement(Paperclip, { className: "h-5 w-5", style: { color: theme$1.colors.text } })),
                         React.createElement("input", { type: "file", ref: fileInputRef, className: "hidden", onChange: handleFileUpload }),
                         React.createElement(Button, { variant: "ghost", size: "icon" },
-                            React.createElement(Calendar, { className: "h-5 w-5", style: { color: theme.colors.text } })),
+                            React.createElement(Calendar, { className: "h-5 w-5", style: { color: theme$1.colors.text } })),
                         React.createElement(Button, { variant: "ghost", size: "icon" },
-                            React.createElement(Globe, { className: "h-5 w-5", style: { color: theme.colors.text } })),
+                            React.createElement(Globe, { className: "h-5 w-5", style: { color: theme$1.colors.text } })),
                         React.createElement(Input, { type: "text", className: "flex-grow border-none text-black placeholder-gray-500", placeholder: "Message ChatGPT", value: input, onChange: (e) => setInput(e.target.value), onKeyDown: (e) => e.key === "Enter" && handleSend(), style: { backgroundColor: "white" } }),
                         React.createElement(Button, { variant: "ghost", size: "icon", onClick: handleMic },
-                            React.createElement(Mic, { className: "h-5 w-5", style: { color: isRecording ? "red" : theme.colors.text } })),
+                            React.createElement(Mic, { className: "h-5 w-5", style: { color: isRecording ? "red" : theme$1.colors.text } })),
                         React.createElement(Button, { variant: "ghost", size: "icon", onClick: handleSend },
-                            React.createElement(Send, { className: "h-5 w-5", style: { color: theme.colors.text } }))))))));
+                            React.createElement(Send, { className: "h-5 w-5", style: { color: theme$1.colors.text } }))))))));
 };
 
 exports.Button = Button$1;

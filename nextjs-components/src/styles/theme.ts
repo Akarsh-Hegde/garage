@@ -1,4 +1,4 @@
-export const theme = {
+const theme = {
   colors: {
     primary: "#C0E8F9",
     secondary: "#3a527b",
@@ -10,4 +10,6 @@ export const theme = {
   clientName: "4Good.AI",
   chatbotImage: "/chatbot-avatar.png",
 }
+
+export default theme;
 

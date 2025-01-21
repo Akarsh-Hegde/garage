@@ -6,7 +6,7 @@ import { Sidebar } from "./Sidebar"
 import { Header } from "./Header"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
-import { theme } from "../styles/theme"
+import defaultTheme from "../styles/theme"
 import Image from "next/image"
 
 interface Message {
@@ -20,7 +20,11 @@ interface Chat {
   messages: Message[]
 }
 
-const ChatInterface: React.FC = () => {
+interface ChatInterfaceProps {
+  theme?: typeof defaultTheme; // Optional theme prop
+}
+
+const ChatInterface: React.FC<ChatInterfaceProps> = ({ theme = defaultTheme }) => {
     const [input, setInput] = useState("")
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   const [chats, setChats] = useState<Chat[]>([])

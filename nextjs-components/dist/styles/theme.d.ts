@@ -1,4 +1,4 @@
-export declare const theme: {
+declare const theme: {
     colors: {
         primary: string;
         secondary: string;
@@ -10,3 +10,4 @@ export declare const theme: {
     clientName: string;
     chatbotImage: string;
 };
+export default theme;
